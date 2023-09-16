@@ -6,7 +6,7 @@ and "A General Novel Parallel Framework for SPH-centric Algorithms".
 
 ## BibTex 
 
-Please cite the following paper if it helps. 
+Please cite the following papers if it helps. 
 
 @article{HUANG2020101088,
 title = {Novel hierarchical strategies for SPH-centric algorithms on GPGPU},
