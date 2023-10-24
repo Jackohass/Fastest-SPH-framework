@@ -19,7 +19,7 @@
 #include "cuda_math.cuh"
 #include "sph_kernel.cuh"
 #include "sph_marching_cube.h"
-#include "pcisph_factor.h"   //sf add
+#include "pcisph_factor.h"   //stf add
 #include "parameters.h"
 
 namespace sph
@@ -89,7 +89,7 @@ bool readSceneFromJsonFile(Scene *out, const std::string &file_name)
 
 	return true;
 }
-//sf 设置SPH系统参数
+//stf Set SPH system parameters (设置SPH系统参数)
 inline void defaultInitializeSPHSysPara(SystemParameter &sys_para, Scene *scene)
 {
 	
@@ -146,10 +146,10 @@ inline void defaultInitializeSPHSysPara(SystemParameter &sys_para, Scene *scene)
                                      sys_para.world_size.y - sys_para.bound_interval,
                                      sys_para.world_size.z - sys_para.bound_interval);
 
-    //sf add
+    //stf add
 //    sys_para.spacing_fluid = pow(sys_para.mass / sys_para.rest_density, 1 / 3.0f);
 
-    //sf pcisph
+    //stf pcisph
 //    sys_para.pcisph_min_loops = pcisph_min_loops;
 //    sys_para.pcisph_max_loops = pcisph_max_loops;
 //    sys_para.pcisph_max_density_error_allowed = pcisph_max_density_error_allowed;
@@ -215,7 +215,7 @@ HybridSystem::~HybridSystem()
 }
 int tt = 0;
 float time = 0;
-//sf 模拟过程的主函数
+//stf The main function of the simulation process (模拟过程的主函数)
 void HybridSystem::tick()
 {
     if (!is_running_) return;
@@ -223,7 +223,7 @@ void HybridSystem::tick()
     HighResolutionTimerForWin timer;
     timer.set_start();
     static int step = 0;
-    cudaEvent_t start, end0, end1, end2, end3; //sf 记录时间
+    cudaEvent_t start, end0, end1, end2, end3; //stf Record time (记录时间)
     if (get_detailed_time_)
     {
         CUDA_SAFE_CALL(cudaEventCreate(&start));
@@ -270,7 +270,7 @@ void HybridSystem::tick()
 	time += 0.003;
     if (get_detailed_time_) CUDA_SAFE_CALL(cudaEventRecord(end3));
 
-    //sf 将数据复制回host
+    //stf Copy data back to host 将数据复制回host
     CUDA_SAFE_CALL(cudaMemcpy(host_buff_.get_buff_list().final_position, device_buff_.get_buff_list().final_position, nump_ * sizeof(float3), cudaMemcpyDeviceToHost));
     CUDA_SAFE_CALL(cudaMemcpy(host_buff_.get_buff_list().color, device_buff_.get_buff_list().color, nump_ * sizeof(uint), cudaMemcpyDeviceToHost));
     CUDA_SAFE_CALL(cudaDeviceSynchronize());
@@ -279,7 +279,7 @@ void HybridSystem::tick()
 
 
 
-    // sf 计算各个步骤的总时间
+    // stf Calculate the total time for each step 计算各个步骤的总时间
     if (get_detailed_time_)
     {
         CUDA_SAFE_CALL(cudaEventElapsedTime(&pre_time_, start, end0));
@@ -304,7 +304,7 @@ void HybridSystem::tick()
     }
 }
 
-//sf 初始化场景
+//stf Initialization scene 初始化场景
 
 
 void HybridSystem::initializeScene(const std::string &file_name, Scene scene)
@@ -352,7 +352,7 @@ void HybridSystem::initializeScene2(const std::string &file_name)
     //}
 
     //sys_para_.mass = scene.mass;
-    transSysParaToDevice(&sys_para_);  //sf 传递系统参数至device端
+    transSysParaToDevice(&sys_para_);  //stf Pass system parameters to the device side 传递系统参数至device端
 
     resetBuffer(scene.recomm_nump);
     particle_interval = scene.interval;
@@ -370,7 +370,7 @@ void HybridSystem::initializeScene2(const std::string &file_name)
 
     float low = 0.01;
     float hig = 2.99;
-    for (float x = low; x < hig; x += sys_para_.spacing_fluid) //sf float x = range.first.x; x < range.second.x / 4; x += sys_para_.kernel * scene.interval
+    for (float x = low; x < hig; x += sys_para_.spacing_fluid) //stf float x = range.first.x; x < range.second.x / 4; x += sys_para_.kernel * scene.interval
     {
         for (float y = low; y < hig / 4; y += sys_para_.spacing_fluid)
         {
@@ -386,7 +386,7 @@ void HybridSystem::initializeScene2(const std::string &file_name)
 
     low = 0.01;
     hig = 2.99;
-    for (float x = low; x < hig; x += sys_para_.spacing_fluid) //sf float x = range.first.x; x < range.second.x / 4; x += sys_para_.kernel * scene.interval
+    for (float x = low; x < hig; x += sys_para_.spacing_fluid) //stf float x = range.first.x; x < range.second.x / 4; x += sys_para_.kernel * scene.interval
     {
         for (float y = low; y < hig/4; y += sys_para_.spacing_fluid)
         {
@@ -399,7 +399,7 @@ void HybridSystem::initializeScene2(const std::string &file_name)
     //pha = SOLID;
     low = 1.25;
     hig = 1.75;
-    for (float x = low; x < hig; x += sys_para_.spacing_fluid) //sf float x = range.first.x; x < range.second.x / 4; x += sys_para_.kernel * scene.interval
+    for (float x = low; x < hig; x += sys_para_.spacing_fluid) //stf float x = range.first.x; x < range.second.x / 4; x += sys_para_.kernel * scene.interval
     {
         for (float y = low; y < hig; y += sys_para_.spacing_fluid)
         {
@@ -430,13 +430,13 @@ bool HybridSystem::isRunning()
     return is_running_;
 }
 
-//sf 返回粒子总数
+//stf Returns the total number of particles 返回粒子总数
 uint HybridSystem::getNumParticles()
 {
     return nump_;
 }
 
-//sf 返回粒子idx的final_position
+//stf Returns the final_position of particle idx 返回粒子idx的final_position
 float3 HybridSystem::getPosition(unsigned int idx)
 {
     //return host_buff_.position[idx] * sys_para_.sim_ratio + sys_para_.sim_origin;

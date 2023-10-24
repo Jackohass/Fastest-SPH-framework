@@ -63,7 +63,7 @@ struct mixPressure{
 
 
 
-//sf add 粒子状态
+//stf add particle state 粒子状态
 enum condition { FLUID, SOLID,  };
 
 
@@ -122,23 +122,23 @@ struct ParticleBufferList
     
     float3* final_position;
 
-    float3*		predicted_pos;  //sf
-    float3*		correction_pressure_force;  //sf
+    float3*		predicted_pos;  //stf
+    float3*		correction_pressure_force;  //stf
   //  float*  density;
     float*  pressure;
     //float*  surface_normal_vector;
     
     //unsigned int* particle_type;
 
-	//sf pcisph--------------------------------
+	//stf pcisph--------------------------------
 	
-	float*		predicted_density; //sf
-	float*		densityError;//sf
-	float*		correction_pressure;  //sf
+	float*		predicted_density; //stf
+	float*		densityError;//stf
+	float*		correction_pressure;  //stf
 
     unsigned int* color;
-	//sf others-------------------------------
-	condition*	phase;             //sf 粒子种类
+	//stf others-------------------------------
+	condition*	phase;             //stf Particle type 粒子种类
 
 
 

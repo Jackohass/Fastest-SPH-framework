@@ -93,7 +93,7 @@ struct CFData
     float   lplc_color;
 };
 
-//sf struct PCISPH
+//stf struct PCISPH
 struct pciCDAPData
 {
 	float3  predicted_pos;
@@ -804,7 +804,7 @@ private:
 
 
 
-//sf struct PCISPH over-------------------------
+//stf struct PCISPH over-------------------------
 class CfkSharedData128
 {
 public:
@@ -1530,14 +1530,14 @@ public:
 
     __device__ float & getDensity(unsigned int idx) { return density_[idx]; }
 
-	__device__ condition & getPhase(unsigned int idx) { return phase_[idx]; }  //sf add
+	__device__ condition & getPhase(unsigned int idx) { return phase_[idx]; }  //stf add
 
 private:
     float3  position_[kNumSharedData];
     float3  ev_[kNumSharedData];
     float   pressure_[kNumSharedData];
     float   density_[kNumSharedData];
-	condition phase_[kNumSharedData]; //sf add
+	condition phase_[kNumSharedData]; //stf add
 
     int cell_start_index_[kNumNeighborCells];
     int cell_end_index_[kNumNeighborCells];
@@ -1546,7 +1546,7 @@ private:
     int current_cell_index_;
 };
 
-//sf class PCISPH------------------------------------------------------------------------
+//stf class PCISPH------------------------------------------------------------------------
 
 
 class pmfCdapSharedData
@@ -2473,7 +2473,7 @@ private:
 	int offset_in_cell_;
 	int current_cell_index_;
 };
-//sf class PCISPH over-------------------------------------------------------------------
+//stf class PCISPH over-------------------------------------------------------------------
 
 }
 

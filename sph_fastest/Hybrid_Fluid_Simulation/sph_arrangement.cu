@@ -494,7 +494,7 @@ void knReindexParticles(ParticleBufferList old_data, ParticleBufferList new_data
         new_data.evaluated_velocity[idx] = old_data.evaluated_velocity[sorted_idx];
         new_data.color[idx] = old_data.color[sorted_idx];
 
-		//sf add
+		//stf add
 		new_data.phase[idx] = old_data.phase[sorted_idx];
     }
 }
@@ -1003,8 +1003,8 @@ void Arrangement::arrangeSMSMode()
     //sortIndexByHash();
     CountingSortCUDA();
     //CUDA_SAFE_CALL(cudaDeviceSynchronize());
-    reindexParticles();  //sf 重新调整粒子顺序！！！！！！！！！！！！！！！需要注意温度等信息需要在这函数内加入
-	//sf 特别是下一个时间不长仍会用到的属性 比如温度
+    reindexParticles();  //stf Reorder particles! ! ! ! ! ! ! ! ! ! ! ! ! ! ! It should be noted that temperature and other information need to be added in this function 重新调整粒子顺序！！！！！！！！！！！！！！！需要注意温度等信息需要在这函数内加入
+	//stf Especially attributes that will be used in the near future, such as temperature. 特别是下一个时间不长仍会用到的属性 比如温度
 
     //CUDA_SAFE_CALL(cudaDeviceSynchronize());
     findCellRange();

@@ -1,4 +1,4 @@
-//sf add 
+//stf add 
 // compute pcisph density error factor
 
 #ifndef _PCISPH_FACTOR_H

@@ -183,7 +183,7 @@ void draw_box(float ox, float oy, float oz, float width, float height, float len
     glEnd();
 }
 
-//sf 设置长方体
+//stf Set up cuboid 设置长方体
 void init_sph_system()
 {
     real_world_origin.x = -40.0f;
@@ -288,7 +288,7 @@ void display_func()
     //glEnable(GL_POINT_SMOOTH);
     glEnable(GL_DEPTH_TEST);
 
-    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);   //sf 背景颜色
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);   //stf background color 背景颜色
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glDisable(GL_CULL_FACE);
     glShadeModel(GL_SMOOTH);

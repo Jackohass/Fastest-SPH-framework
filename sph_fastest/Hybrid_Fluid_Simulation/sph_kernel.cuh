@@ -101,7 +101,7 @@ void manualSetting(ParticleBufferList buff_list, int nump, int step);
 
 void advance(ParticleBufferList buff_list, int nump);
 void advanceWave(ParticleBufferList buff_list, int nump, float time);
-//sf pcisph-----------------------
+//stf pcisph-----------------------
 
 void advancePCI(ParticleBufferList buff_list, int nump);
 
@@ -182,7 +182,7 @@ void computeCorrectivePressureForceHybrid128n(ParticleIdxRange range, ParticleBu
 
 void computeCorrectivePressureForceTRA(ParticleBufferList buff_list, int *cell_offset, int *cell_num, ParticleIdxRange range);
 
-//sf heat conduction-------------------
+//stf heat conduction-------------------
 void computeHeatFlux(ParticleBufferList buff_list, int *cell_offset, int *cell_num, BlockTask *block_task, int num_block);
 
 void computeTemperatureAndPhaseTransAndGetVis(ParticleBufferList buff_list, int *cell_offset, int *cell_num, BlockTask *block_task, int num_block);

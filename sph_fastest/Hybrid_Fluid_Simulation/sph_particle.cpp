@@ -180,7 +180,7 @@ void ParticleBufferObject::allocateSubBuffer(const ParticleBufferObject* base_bu
         //CUDA_SAFE_CALL(cudaMalloc(&buff_list_.particle_type, capacity_ * sizeof(unsigned int)));
 		CUDA_SAFE_CALL(cudaMalloc(&buff_list_.color, capacity_ * sizeof(unsigned int)));
 
-		//sf add
+		//stf add
 //		CUDA_SAFE_CALL(cudaMalloc(&buff_list_.phase, capacity_ * sizeof(condition)));
 
         buff_list_.acceleration = base_buffer->buff_list_.acceleration;
