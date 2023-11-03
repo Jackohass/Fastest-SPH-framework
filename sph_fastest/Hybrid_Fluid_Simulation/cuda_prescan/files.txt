@@ -1,0 +1,5 @@
+files.txt
+prefix_sum.cu
+scan.cu
+scan.cuh
+scan_kern.cuh
