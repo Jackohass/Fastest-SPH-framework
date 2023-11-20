@@ -15,7 +15,7 @@
 #include <vector>
 #include <hip/hip_runtime.h>
 #include <GL/glew.h>
-#include "gl_texture.h"
+#include "gl_texture.h.hip"
 #include "high_resolution_timer.h.hip"
 #include "sph_arrangement.cuh.hip"
 #include "sph_parameter.h.hip"
@@ -55,6 +55,8 @@ public:
     void drawInfo(GLdouble w, GLdouble h);
 	int loop;
 
+    bool runTick = false;
+
 private:
     void initializeScene(const std::string &file_name, Scene scene);
     void initializeScene2(const std::string &file_name);
@@ -74,7 +76,7 @@ private:
     //std::unique_ptr<Arrangement> arrangement_;
 	Arrangement *arrangement_;
 	float particle_interval = 0.5f;
-    HighResolutionTimerForWin frame_timer_;
+    //HighResolutionTimerForWin frame_timer_;
     bool get_detailed_time_;
     float total_time_;
     float pre_time_, density_time_, force_time_;

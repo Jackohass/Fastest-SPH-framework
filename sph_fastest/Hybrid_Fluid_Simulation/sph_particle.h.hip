@@ -11,7 +11,7 @@
 
 #include <windows.h>
 #include <GL/glew.h>
-#include <cuda_gl_interop.h>
+//#include <cuda_gl_interop.h>
 #include "cuda_call_check.h.hip"
 //#include "sph_hybrid_system.h"
 

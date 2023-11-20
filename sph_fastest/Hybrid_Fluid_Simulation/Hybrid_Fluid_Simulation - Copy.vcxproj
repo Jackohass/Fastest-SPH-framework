@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="gl_main.cpp.hip" />
+    <ClCompile Include="gpu_model_reader.cpp.hip" />
+    <ClCompile Include="lodepng.cpp" />
+    <ClCompile Include="parameters.cpp.hip" />
+    <ClCompile Include="pcisph_factor.cpp.hip" />
+    <ClCompile Include="sph_marching_cube.cpp.hip" />
+    <ClCompile Include="sph_particle.cpp.hip" />
+    <ClCompile Include="sph_timer.cpp.hip" />
+    <ClCompile Include="cuda_prescan\prefix_sum.cu.hip" />
+    <ClCompile Include="cuda_prescan\scan.cu.hip" />
+    <ClCompile Include="gpu_model.cu.hip" />
+    <ClCompile Include="sph_arrangement.cu.hip" />
+    <ClCompile Include="sph_hybrid_system.cpp.hip" />
+    <ClCompile Include="sph_kernel.cu.hip" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="lodepng.h" />
+    <ClInclude Include="save_screen.h" />
+    <ClInclude Include="sph_data.h" />
+    <ClInclude Include="sph_header.h" />
+    <ClInclude Include="cuda_call_check.h.hip" />
+    <ClInclude Include="cuda_math.cuh.hip" />
+    <ClInclude Include="parameters.h.hip" />
+    <ClInclude Include="cuda_prescan\scan.cuh.hip" />
+    <ClInclude Include="cuda_prescan\scan_kern.cuh.hip" />
+    <ClInclude Include="gl_main_header.h.hip" />
+    <ClInclude Include="gl_texture.h.hip" />
+    <ClInclude Include="gpu_model.cuh.hip" />
+    <ClInclude Include="gpu_model.h.hip" />
+    <ClInclude Include="gpu_model_reader.h.hip" />
+    <ClInclude Include="high_resolution_timer.h.hip" />
+    <ClInclude Include="pcisph_factor.h.hip" />
+    <ClInclude Include="sph_arrangement.cuh.hip" />
+    <ClInclude Include="sph_hybrid_system.h.hip" />
+    <ClInclude Include="sph_kernel.cuh.hip" />
+    <ClInclude Include="sph_kernel_shared_data.cuh.hip" />
+    <ClInclude Include="sph_marching_cube.h.hip" />
+    <ClInclude Include="sph_parameter.h.hip" />
+    <ClInclude Include="sph_particle.h.hip" />
+    <ClInclude Include="sph_timer.h.hip" />
+    <ClInclude Include="sph_utils.cuh.hip" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{BC50E9FA-E95F-4E72-9F2B-D45567958A71}</ProjectGuid>
+    <RootNamespace>Hybrid_Fluid_Simulation</RootNamespace>
+    <ProjectName>Hybrid_Fluid_Simulation</ProjectName>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>HIP_clang</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>HIP_clang</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+    <Import Condition="'$(PlatformToolset)'=='HIP_clang'" Project="$(VCTargetsPath)\AMD.HIP.Clang.Common.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Label="HIP_clang" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OffloadArch>gfx1030;gfx1100;gfx1101;gfx1102</OffloadArch>
+  </PropertyGroup>
+  <PropertyGroup Label="HIP_clang" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OffloadArch>gfx1030;gfx1100;gfx1101;gfx1102</OffloadArch>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(SolutionDir)\Hybrid_Fluid_Simulation\GL_LIB\glew_64\include;$(SolutionDir)\Hybrid_Fluid_Simulation\GL_LIB\freeglut_64\include;$(SolutionDir)\Hybrid_Fluid_Simulation\json\include;C:\Program Files\AMD\ROCm\5.5\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\Hybrid_Fluid_Simulation\GL_LIB\glew_64\libs\release;$(SolutionDir)\Hybrid_Fluid_Simulation\GL_LIB\freeglut_64\libs\release;$(SolutionDir)\Hybrid_Fluid_Simulation\json;C:\Program Files\AMD\ROCm\5.5;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IncludePath>$(SolutionDir)\Hybrid_Fluid_Simulation\GL_LIB\glew_64\include;$(SolutionDir)\Hybrid_Fluid_Simulation\GL_LIB\freeglut_64\include;$(SolutionDir)\Hybrid_Fluid_Simulation\json\include;C:\Program Files\AMD\ROCm\5.5\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\Hybrid_Fluid_Simulation\GL_LIB\glew_64\libs\release;$(SolutionDir)\Hybrid_Fluid_Simulation\GL_LIB\freeglut_64\libs\release;$(SolutionDir)\Hybrid_Fluid_Simulation\json;C:\Program Files\AMD\ROCm\5.5;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64' and '$(PlatformToolset)'=='HIP_clang'">
+    <ClCompile>
+      <WarningLevel>Level2</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>__clang__;__HIP__;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>D:\projects\master_thesis\programs\Fastest-SPH-framework\sph_fastest\Hybrid_Fluid_Simulation\json\include;$(MSBuildProjectDirectory)\..\..\..\Common;C:\Program Files\AMD\ROCm\5.5\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <AdditionalDependencies>freeglut.lib;glew32.lib;lib_json.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>/SAFESEH:NO %(AdditionalOptions)</AdditionalOptions>
+      <OptimizeReferences Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</OptimizeReferences>
+      <EnableCOMDATFolding Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</EnableCOMDATFolding>
+      <LinkTimeCodeGeneration Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">UseFastLinkTimeCodeGeneration</LinkTimeCodeGeneration>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64' and '$(PlatformToolset)'=='HIP_clang'">
+    <ClCompile>
+      <WarningLevel>Level2</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>__clang__;__HIP__;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\projects\master_thesis\programs\Fastest-SPH-framework\sph_fastest\Hybrid_Fluid_Simulation\json\include;$(MSBuildProjectDirectory)\..\..\..\Common;C:\Program Files\AMD\ROCm\5.5\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>freeglut.lib;glew32.lib;lib_json.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>/SAFESEH:NO %(AdditionalOptions)</AdditionalOptions>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+    <Import Condition="'$(PlatformToolset)'=='HIP_clang'" Project="$(VCTargetsPath)\AMD.HIP.Clang.Common.targets" />
+  </ImportGroup>
+</Project>

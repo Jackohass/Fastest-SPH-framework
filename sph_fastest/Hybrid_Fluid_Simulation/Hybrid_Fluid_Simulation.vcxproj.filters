@@ -19,6 +19,9 @@
     <Filter Include="Marching Cubes">
       <UniqueIdentifier>{a08c016c-896a-4c51-b108-2eec44fe4591}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Shader">
+      <UniqueIdentifier>{8f56f8b9-ea46-4b84-b7c5-e8f69971aa8b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="lodepng.cpp">
@@ -27,40 +30,16 @@
     <ClCompile Include="pcisph_factor.cpp.hip">
       <Filter>SPH System</Filter>
     </ClCompile>
-    <ClCompile Include="pcisph_factor.h.hip">
-      <Filter>SPH System</Filter>
-    </ClCompile>
     <ClCompile Include="sph_arrangement.cu.hip">
-      <Filter>SPH System</Filter>
-    </ClCompile>
-    <ClCompile Include="sph_arrangement.cuh.hip">
       <Filter>SPH System</Filter>
     </ClCompile>
     <ClCompile Include="sph_hybrid_system.cpp.hip">
       <Filter>SPH System</Filter>
     </ClCompile>
-    <ClCompile Include="sph_hybrid_system.h.hip">
-      <Filter>SPH System</Filter>
-    </ClCompile>
     <ClCompile Include="sph_kernel.cu.hip">
       <Filter>SPH System</Filter>
     </ClCompile>
-    <ClCompile Include="sph_kernel.cuh.hip">
-      <Filter>SPH System</Filter>
-    </ClCompile>
-    <ClCompile Include="sph_kernel_shared_data.cuh.hip">
-      <Filter>SPH System</Filter>
-    </ClCompile>
-    <ClCompile Include="sph_parameter.h.hip">
-      <Filter>SPH System</Filter>
-    </ClCompile>
     <ClCompile Include="sph_particle.cpp.hip">
-      <Filter>SPH System</Filter>
-    </ClCompile>
-    <ClCompile Include="sph_particle.h.hip">
-      <Filter>SPH System</Filter>
-    </ClCompile>
-    <ClCompile Include="sph_utils.cuh.hip">
       <Filter>SPH System</Filter>
     </ClCompile>
     <ClCompile Include="cuda_prescan\prefix_sum.cu.hip">
@@ -69,54 +48,19 @@
     <ClCompile Include="cuda_prescan\scan.cu.hip">
       <Filter>GPU Prescan</Filter>
     </ClCompile>
-    <ClCompile Include="cuda_prescan\scan.cuh.hip">
-      <Filter>GPU Prescan</Filter>
-    </ClCompile>
-    <ClCompile Include="cuda_prescan\scan_kern.cuh.hip">
-      <Filter>GPU Prescan</Filter>
-    </ClCompile>
-    <ClCompile Include="gl_texture.h.hip">
-      <Filter>Utils</Filter>
-    </ClCompile>
-    <ClCompile Include="high_resolution_timer.h.hip">
-      <Filter>Utils</Filter>
-    </ClCompile>
     <ClCompile Include="sph_timer.cpp.hip">
       <Filter>Utils</Filter>
     </ClCompile>
-    <ClCompile Include="sph_timer.h.hip">
-      <Filter>Utils</Filter>
-    </ClCompile>
     <ClCompile Include="gl_main.cpp.hip" />
-    <ClCompile Include="gl_main_header.h.hip" />
     <ClCompile Include="parameters.cpp.hip" />
-    <ClCompile Include="parameters.h.hip" />
     <ClCompile Include="gpu_model.cu.hip">
-      <Filter>GPU Model</Filter>
-    </ClCompile>
-    <ClCompile Include="gpu_model.cuh.hip">
-      <Filter>GPU Model</Filter>
-    </ClCompile>
-    <ClCompile Include="gpu_model.h.hip">
       <Filter>GPU Model</Filter>
     </ClCompile>
     <ClCompile Include="gpu_model_reader.cpp.hip">
       <Filter>GPU Model</Filter>
     </ClCompile>
-    <ClCompile Include="gpu_model_reader.h.hip">
-      <Filter>GPU Model</Filter>
-    </ClCompile>
     <ClCompile Include="sph_marching_cube.cpp.hip">
       <Filter>Marching Cubes</Filter>
-    </ClCompile>
-    <ClCompile Include="sph_marching_cube.h.hip">
-      <Filter>Marching Cubes</Filter>
-    </ClCompile>
-    <ClCompile Include="cuda_call_check.h.hip">
-      <Filter>Utils</Filter>
-    </ClCompile>
-    <ClCompile Include="cuda_math.cuh.hip">
-      <Filter>Utils</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -132,5 +76,68 @@
     <ClInclude Include="sph_header.h">
       <Filter>SPH System</Filter>
     </ClInclude>
+    <ClInclude Include="cuda_call_check.h.hip" />
+    <ClInclude Include="cuda_math.cuh.hip" />
+    <ClInclude Include="parameters.h.hip" />
+    <ClInclude Include="gl_main_header.h.hip" />
+    <ClInclude Include="gl_texture.h.hip">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="gpu_model.cuh.hip">
+      <Filter>GPU Model</Filter>
+    </ClInclude>
+    <ClInclude Include="gpu_model.h.hip">
+      <Filter>GPU Model</Filter>
+    </ClInclude>
+    <ClInclude Include="gpu_model_reader.h.hip">
+      <Filter>GPU Model</Filter>
+    </ClInclude>
+    <ClInclude Include="high_resolution_timer.h.hip">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="pcisph_factor.h.hip">
+      <Filter>SPH System</Filter>
+    </ClInclude>
+    <ClInclude Include="cuda_prescan\scan.cuh.hip">
+      <Filter>GPU Prescan</Filter>
+    </ClInclude>
+    <ClInclude Include="cuda_prescan\scan_kern.cuh.hip">
+      <Filter>GPU Prescan</Filter>
+    </ClInclude>
+    <ClInclude Include="sph_arrangement.cuh.hip">
+      <Filter>SPH System</Filter>
+    </ClInclude>
+    <ClInclude Include="sph_hybrid_system.h.hip">
+      <Filter>SPH System</Filter>
+    </ClInclude>
+    <ClInclude Include="sph_kernel.cuh.hip">
+      <Filter>SPH System</Filter>
+    </ClInclude>
+    <ClInclude Include="sph_kernel_shared_data.cuh.hip">
+      <Filter>SPH System</Filter>
+    </ClInclude>
+    <ClInclude Include="sph_marching_cube.h.hip">
+      <Filter>Marching Cubes</Filter>
+    </ClInclude>
+    <ClInclude Include="sph_timer.h.hip">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="sph_parameter.h.hip">
+      <Filter>SPH System</Filter>
+    </ClInclude>
+    <ClInclude Include="sph_particle.h.hip">
+      <Filter>SPH System</Filter>
+    </ClInclude>
+    <ClInclude Include="sph_utils.cuh.hip">
+      <Filter>SPH System</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Shader\shader.fs">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="Shader\shader.vs">
+      <Filter>Shader</Filter>
+    </None>
   </ItemGroup>
 </Project>

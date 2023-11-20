@@ -9,6 +9,8 @@
 #ifndef _GPU_MODEL_CUH
 #define _GPU_MODEL_CUH
 
+#include <hip/hip_runtime.h>
+
 namespace gpu_model
 {
 

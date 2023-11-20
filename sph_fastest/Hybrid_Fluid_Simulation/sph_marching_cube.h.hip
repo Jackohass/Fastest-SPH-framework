@@ -9,7 +9,7 @@
 #ifndef _SPH_MARCHING_CUBE_H
 #define _SPH_MARCHING_CUBE_H
 
-#include <vector_functions.h>
+//#include <vector_functions.h>
 #include "sph_parameter.h.hip"
 
 namespace sph

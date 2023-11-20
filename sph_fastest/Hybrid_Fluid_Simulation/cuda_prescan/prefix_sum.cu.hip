@@ -27,6 +27,8 @@
 #define CONFLICT_FREE_OFFSET(index) ((index) >> LOG_NUM_BANKS)
 #endif
 
+#include <hip/hip_runtime.h>
+
 ///////////////////////////////////////////////////////////////////////////////
 // Work-efficient compute implementation of scan, one thread per 2 elements
 // Work-efficient: O(log(n)) steps, and O(n) adds.

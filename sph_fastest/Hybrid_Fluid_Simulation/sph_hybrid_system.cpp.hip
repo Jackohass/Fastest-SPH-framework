@@ -7,6 +7,7 @@
 //
 
 #define _USE_MATH_DEFINES
+#define _ITERATOR_DEBUG_LEVEL 0
 
 #include "sph_hybrid_system.h.hip"
 #include <math.h>
@@ -218,20 +219,21 @@ float time = 0;
 //sf 模拟过程的主函数
 void HybridSystem::tick()
 {
-    if (!is_running_) return;
+    if (!is_running_ && !runTick) return;
 	tt++;
-    HighResolutionTimerForWin timer;
-    timer.set_start();
+    runTick = false;
+    //HighResolutionTimerForWin timer;
+    //timer.set_start();
     static int step = 0;
-    cudaEvent_t start, end0, end1, end2, end3; //sf 记录时间
-    if (get_detailed_time_)
-    {
-        CUDA_SAFE_CALL(cudaEventCreate(&start));
-        CUDA_SAFE_CALL(cudaEventCreate(&end0));
-        CUDA_SAFE_CALL(cudaEventCreate(&end1));
-        CUDA_SAFE_CALL(cudaEventCreate(&end2));
-        CUDA_SAFE_CALL(cudaEventCreate(&end3));
-    }
+    //cudaEvent_t start, end0, end1, end2, end3; //sf 记录时间
+    //if (get_detailed_time_)
+    //{
+    //    CUDA_SAFE_CALL(cudaEventCreate(&start));
+    //    CUDA_SAFE_CALL(cudaEventCreate(&end0));
+    //    CUDA_SAFE_CALL(cudaEventCreate(&end1));
+    //    CUDA_SAFE_CALL(cudaEventCreate(&end2));
+    //    CUDA_SAFE_CALL(cudaEventCreate(&end3));
+    //}
     static float tot_pres = 0.0f, tot_forc = 0.0f, tot_tot = 0.0f;
     int *d_index = arrangement_->getDevCellIndex();
     int *offset_data = arrangement_->getDevOffsetData();
@@ -240,7 +242,7 @@ void HybridSystem::tick()
 	int *cell_offsetM = arrangement_->getDevCellOffsetM();
 
     int *cell_nump = arrangement_->getDevCellNumP();
-    if (get_detailed_time_) CUDA_SAFE_CALL(cudaEventRecord(start));
+    //if (get_detailed_time_) CUDA_SAFE_CALL(cudaEventRecord(start));
     int middle = nump_;
     //arrangement_->sortParticles();
 
@@ -252,35 +254,42 @@ void HybridSystem::tick()
     ParticleIdxRange tra_range(0, middle);      // [0, middle)
 
 //      std::cout << "middle value: ******************************************" << middle << std::endl;
-    if (get_detailed_time_) CUDA_SAFE_CALL(cudaEventRecord(end0));
+    //if (get_detailed_time_) CUDA_SAFE_CALL(cudaEventRecord(end0));
 
 	computeDensityHybrid128n(cell_offsetM, tra_range, device_buff_.get_buff_list(), d_index, cell_offset, cell_nump, arrangement_->getBlockTasks(), arrangement_->getNumBlockSMSMode());
 //    computeDensitySMS64(device_buff_.get_buff_list(), cell_offset, cell_nump, arrangement_->getBlockTasks(), arrangement_->getNumBlockSMSMode());
 //    computeDensityTRA(device_buff_.get_buff_list(), ParticleIdxRange(0, nump_), cell_offset, cell_nump);
     //   std::cout << step << std::endl;
-    if (get_detailed_time_) CUDA_SAFE_CALL(cudaEventRecord(end1));
+    //if (get_detailed_time_) CUDA_SAFE_CALL(cudaEventRecord(end1));
 
 	computeForceHybrid128n(cell_offsetM, tra_range, device_buff_.get_buff_list(), d_index, cell_offset, cell_nump, arrangement_->getBlockTasks(), arrangement_->getNumBlockSMSMode());
 //    computeForceSMS64(device_buff_.get_buff_list(), cell_offset, cell_nump, arrangement_->getBlockTasks(), arrangement_->getNumBlockSMSMode());
 //    computeForceTRA(device_buff_.get_buff_list(), ParticleIdxRange(0, nump_), cell_offset, cell_nump);
-    if (get_detailed_time_) CUDA_SAFE_CALL(cudaEventRecord(end2));
+    //if (get_detailed_time_) CUDA_SAFE_CALL(cudaEventRecord(end2));
 
     advance(device_buff_.get_buff_list(), nump_);
 	//advanceWave(device_buff_.get_buff_list(), nump_,time);
 	time += 0.003;
-    if (get_detailed_time_) CUDA_SAFE_CALL(cudaEventRecord(end3));
+    //if (get_detailed_time_) CUDA_SAFE_CALL(cudaEventRecord(end3));
+
+    /*printf("Size of float3 in tick function: %d\n", sizeof(float3));
+    printf("Number bytes being copied to host: %d\n", nump_ * sizeof(float3));*/
 
     //sf 将数据复制回host
-    CUDA_SAFE_CALL(cudaMemcpy(host_buff_.get_buff_list().final_position, device_buff_.get_buff_list().final_position, nump_ * sizeof(float3), cudaMemcpyDeviceToHost));
-    CUDA_SAFE_CALL(cudaMemcpy(host_buff_.get_buff_list().color, device_buff_.get_buff_list().color, nump_ * sizeof(uint), cudaMemcpyDeviceToHost));
-    CUDA_SAFE_CALL(cudaDeviceSynchronize());
+    //printf("-------A FREEZE IS INCOMING!--------\n");
+    CUDA_SAFE_CALL(hipMemcpy(host_buff_.get_buff_list().final_position, device_buff_.get_buff_list().final_position, nump_ * sizeof(float3), hipMemcpyDeviceToHost)); //MEGA SUS
+    //printf("-------DONE FIRST MEMCPY!--------\n");
+    CUDA_SAFE_CALL(hipMemcpy(host_buff_.get_buff_list().color, device_buff_.get_buff_list().color, nump_ * sizeof(uint), hipMemcpyDeviceToHost));
+    //printf("-------DONE SECOND MEMCPY!--------\n");
+    CUDA_SAFE_CALL(hipDeviceSynchronize());
+    //printf("-------FREEZE DONE!--------\n");
 
-    timer.set_end();
+    //timer.set_end();
 
 
 
     // sf 计算各个步骤的总时间
-    if (get_detailed_time_)
+    /*if (get_detailed_time_)
     {
         CUDA_SAFE_CALL(cudaEventElapsedTime(&pre_time_, start, end0));
         CUDA_SAFE_CALL(cudaEventElapsedTime(&density_time_, end0, end1));
@@ -296,7 +305,7 @@ void HybridSystem::tick()
         CUDA_SAFE_CALL(cudaEventDestroy(end1));
         CUDA_SAFE_CALL(cudaEventDestroy(end2));
         CUDA_SAFE_CALL(cudaEventDestroy(end3));
-    }
+    }*/
     ++step;
     loop = step;
     if (loop > 640) {
@@ -333,7 +342,7 @@ void HybridSystem::initializeScene(const std::string &file_name, Scene scene)
     BuffInit(device_buff_.get_buff_list(), nump_);
     std::cout << "Number of particles: " << nump_ << std::endl;
 
-    host_buff_.transfer(device_buff_, 0, nump_, cudaMemcpyHostToDevice);
+    host_buff_.transfer(device_buff_, 0, nump_, hipMemcpyHostToDevice);
 
     //arrangement_.reset(new Arrangement(device_buff_, device_buff_temp_, nump_, sys_para_.cell_size, sys_para_.grid_size));
     arrangement_ = //new Arrangement(device_buff_, device_buff_temp_, nump_, buff_capacity_, sys_para_.cell_size, sys_para_.grid_size);
@@ -415,7 +424,7 @@ void HybridSystem::initializeScene2(const std::string &file_name)
 
     std::cout << "Number of particles: " << nump_ << std::endl;
 
-    host_buff_.transfer(device_buff_, 0, nump_, cudaMemcpyHostToDevice);
+    host_buff_.transfer(device_buff_, 0, nump_, hipMemcpyHostToDevice);
     //arrangement_.reset(new Arrangement(device_buff_, device_buff_temp_, nump_, sys_para_.cell_size, sys_para_.grid_size));
     arrangement_ = new Arrangement(device_buff_, device_buff_temp_, nump_, buff_capacity_, sys_para_.cell_size, sys_para_.grid_size);
 }
@@ -517,7 +526,7 @@ void HybridSystem::drawInfo(GLdouble w, GLdouble h)
     float x = 20, y = 20, delta_y = 20;
     std::stringstream ss;
     static unsigned int frame = 0;
-    static float time = 0.0f, acc_time = 0.0f;
+    //static float time = 0.0f, acc_time = 0.0f;
 
     setOrthographicProjection(w, h);
 	//tt++;
@@ -527,13 +536,13 @@ void HybridSystem::drawInfo(GLdouble w, GLdouble h)
     glDisable(GL_LIGHTING);
 
     // output particles
-    frame_timer_.set_end();
-    acc_time += frame_timer_.get_millisecond();
-    frame_timer_.set_start();
+    //frame_timer_.set_end();
+    //acc_time += frame_timer_.get_millisecond();
+    //frame_timer_.set_start();
     ++frame;
-    if (acc_time > 100.0f) {
+    /*if (acc_time > 100.0f) {
         time = 1000 * frame / acc_time; frame = 0; acc_time = 0.0f;
-    }
+    }*/
     float xixi = float(1000.0f / total_time_);
 
 	if (tt > 10&&tt<631){
@@ -551,7 +560,7 @@ void HybridSystem::drawInfo(GLdouble w, GLdouble h)
     ss << "FPS: " << xixi;//time;
 
 
-    frame_timer_.set_start();
+    //frame_timer_.set_start();
     renderBitmapString(x, y, 0, GLUT_BITMAP_HELVETICA_12, ss);
     ss.str(""); y += delta_y;
 
@@ -674,7 +683,7 @@ void HybridSystem::action1()
         }
     }
     BuffInit(device_buff_.get_buff_list(), nump_);
-    host_buff_.transfer(device_buff_, original_nump, nump_ - original_nump, cudaMemcpyHostToDevice);
+    host_buff_.transfer(device_buff_, original_nump, nump_ - original_nump, hipMemcpyHostToDevice);
     arrangement_->resetNumParticle(nump_);
 }
 }

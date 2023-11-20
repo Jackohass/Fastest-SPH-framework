@@ -9,7 +9,7 @@
 
 #include <hip/hip_runtime.h>
 #include "gpu_model.cuh.hip"
-#include <device_launch_parameters.h>
+//#include <device_launch_parameters.h>
 #include "cuda_call_check.h.hip"
 #include "cuda_math.cuh.hip"
 #include "gpu_model.h.hip"
@@ -142,13 +142,13 @@ void knCalculateBlockRequirementHybridMode(int *cell_type, int *d_cell_num, int 
     unsigned int idx = threadIdx.x + blockDim.x*blockIdx.x;
     int numc = grid_size.x * grid_size.y * grid_size.z;
     if (idx >= numc) return;
-    register int nump_self = d_cell_num[idx];
+    int nump_self = d_cell_num[idx];
    
     
     
-    register int totaln = nump_self;
-	register ushort3 self_pos = CellIdx2CellPos(idx, grid_size);
-    register int nidx = CellPos2CellIdx(self_pos + make_ushort3(-1, 0, 0), grid_size);
+    int totaln = nump_self;
+	ushort3 self_pos = CellIdx2CellPos(idx, grid_size);
+    int nidx = CellPos2CellIdx(self_pos + make_ushort3(-1, 0, 0), grid_size);
     if (kInvalidCellIdx != nidx) totaln += d_cell_num[nidx];
     nidx = CellPos2CellIdx(self_pos + make_ushort3(1, 0, 0), grid_size);
     if (kInvalidCellIdx != nidx) totaln += d_cell_num[nidx];
@@ -252,7 +252,8 @@ void allocateGPUModel(GPUModel *&gpu_model)
 
     // read instruction latency and transfer to device
     readInstructionLatencyFromFile(insts_latency, kLatencyFileName);
-    HIP_SYMBOL(kDevInstsLatency)(hipMemcpyToSymbol(kDevInstsLatency, &insts_latency, sizeof(InstructionInfo)));
+    size_t iiSize = sizeof(InstructionInfo);
+    (hipMemcpyToSymbol(HIP_SYMBOL(kDevInstsLatency), &insts_latency, iiSize));
 
     // set device info and transfer to device
     device_info.simd_width = 64;
@@ -260,7 +261,7 @@ void allocateGPUModel(GPUModel *&gpu_model)
     device_info.gamma = 64;
     device_info.ilp = 2;
     device_info.mlp = 2;
-    HIP_SYMBOL(kDevGPUInfo)(hipMemcpyToSymbol(kDevGPUInfo, &device_info, sizeof(GPUDeviceInfo)));
+    (hipMemcpyToSymbol(HIP_SYMBOL(kDevGPUInfo), &device_info, sizeof(GPUDeviceInfo)));
 
     // set kernel related paras and transfer to device
     setKernelParameters(kn_paras[kDensityTRA], kDensityTRA);
@@ -288,13 +289,13 @@ void freeGPUModel(GPUModel *gpu_model)
     delete gpu_model;
 }
 
-void calculateBlockRequirementSMSMode(int *block_req, int *cell_start, int *cell_end, int block_size, int numc)
-{
-    int num_thread = kDefaultNumThread;
-    int num_block = ceil_int(numc, num_thread);
-
-    knCalculateBlockRequirementSMSMode<<<num_block, num_thread>>>(block_req, cell_start, cell_end, block_size, numc);
-}
+//void calculateBlockRequirementSMSMode(int *block_req, int *cell_start, int *cell_end, int block_size, int numc)
+//{
+//    int num_thread = kDefaultNumThread;
+//    int num_block = ceil_int(numc, num_thread);
+//
+//    knCalculateBlockRequirementSMSMode<<<num_block, num_thread>>>(block_req, cell_start, cell_end, block_size, numc);
+//}
 
 void calculateBlockRequirementHybridMode(int *cell_type, int *d_cell_num, int *block_req, GPUModel *gm, int *cell_offset, int *cell_num, ushort3 grid_size, int block_size)
 {

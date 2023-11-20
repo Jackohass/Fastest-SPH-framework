@@ -7,4 +7,11 @@
     <LocalDebuggerEnvironment>PATH=$(SolutionDir)\Hybrid_Fluid_Simulation\GL_LIB</LocalDebuggerEnvironment>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LocalDebuggerEnvironment>HIPCC_VERBOSE=1$
+HSA_ENABLE_SDMA=0$
+AMD_LOG_MASK=1
+$(LocalDebuggerEnvironment)</LocalDebuggerEnvironment>
+    <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+  </PropertyGroup>
 </Project>

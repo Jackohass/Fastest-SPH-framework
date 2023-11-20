@@ -6,7 +6,7 @@
 // common
 ///////////////////////////////////////////////////////////////////////////////////
 const bool DEBUG = false;
-const float TIME_STEP = 0.004;
+const float TIME_STEP = 1;// 0.004;
 const float3 WORLD_SIZE = make_float3(4, 4, 4);
 const float3 GRAVITY = make_float3(0.0f, -9.8f, 0.0f);
 

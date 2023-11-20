@@ -1,0 +1,342 @@
+﻿  "C:\Program Files\AMD\ROCm\5.5\bin\clang.exe"  -x hip -c -std=c++17 -Xclang -fdefault-calling-conv=cdecl -ggdb3 -ggdb -gcodeview -fno-standalone-debug -Wall -Wextra -fstandalone-debug -fdebug-macro -fhip-new-launch-api -fno-memory-profile -fdebug-info-for-profiling -I "D:\\projects\\master_thesis\\programs\\Fastest-SPH-framework\\sph_fastest\\Hybrid_Fluid_Simulation\\json\\include" -I "D:\\projects\\master_thesis\\programs\\HIPIFIED-FSPHF\\sph_fastest\\Hybrid_Fluid_Simulation\\..\\..\\..\\Common" -I "C:\\Program Files\\AMD\\ROCm\\5.5\\include" -O0 -fno-fast-math -mno-wavefrontsize64 -fno-caret-diagnostics -fshow-column -fms-extensions -fms-compatibility -fdiagnostics-format=msvc -v -fexceptions -fno-function-sections -fstack-protector -frtti --offload-arch=gfx1030 --offload-arch=gfx1100 --offload-arch=gfx1101 --offload-arch=gfx1102 -D__HIP_ARCH_GFX1030__=1 -D__HIP_ARCH_GFX1100__=1 -D__HIP_ARCH_GFX1101__=1 -D__HIP_ARCH_GFX1102__=1  -D_MT -Xclang -flto-visibility-public-std -Xclang --dependent-lib=libcmt -Xclang --dependent-lib=oldnames --hip-device-lib-path="C:\\Program Files\\AMD\\ROCm\\5.5\\amdgcn\\bitcode" -D __clang__ -D __HIP__ -D WIN32 -D NDEBUG -D _CONSOLE -D _UNICODE -D UNICODE -fuse-line-directives -Wdeprecated -Wno-deprecated-declarations sph_arrangement.cu.hip -o "Debug\\HIP_clang\\sph_arrangement.cu.hip.obj"
+  sph_arrangement.cu.hip
+  clang version 17.0.0 (git@github.amd.com:Compute-Mirrors/llvm-project e3201662d21c48894f2156d302276eb1cf47c7be)
+  Target: x86_64-pc-windows-msvc
+  Thread model: posix
+  InstalledDir: C:\Program Files\AMD\ROCm\5.5\bin
+  Found HIP installation: C:\Program Files\AMD\ROCm\5.5, version 5.5.0
+   "C:\\Program Files\\AMD\\ROCm\\5.5\\bin\\clang.exe" -cc1 -triple amdgcn-amd-amdhsa -aux-triple x86_64-pc-windows-msvc -emit-obj -mrelax-all -mincremental-linker-compatible -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name sph_arrangement.cu.hip -mrelocation-model pic -pic-level 2 -fhalf-no-semantic-interposition -mframe-pointer=all -fno-rounding-math -mconstructor-aliases -aux-target-cpu x86-64 -fcuda-is-device -mllvm -amdgpu-internalize-symbols -fcuda-allow-variadic-functions -fvisibility=hidden -fapply-global-visibility-to-externs -mlink-builtin-bitcode "C:\\Program Files\\AMD\\ROCm\\5.5\\amdgcn\\bitcode\\hip.bc" -mlink-builtin-bitcode "C:\\Program Files\\AMD\\ROCm\\5.5\\amdgcn\\bitcode\\ocml.bc" -mlink-builtin-bitcode "C:\\Program Files\\AMD\\ROCm\\5.5\\amdgcn\\bitcode\\ockl.bc" -mlink-builtin-bitcode "C:\\Program Files\\AMD\\ROCm\\5.5\\amdgcn\\bitcode\\oclc_daz_opt_off.bc" -mlink-builtin-bitcode "C:\\Program Files\\AMD\\ROCm\\5.5\\amdgcn\\bitcode\\oclc_unsafe_math_off.bc" -mlink-builtin-bitcode "C:\\Program Files\\AMD\\ROCm\\5.5\\amdgcn\\bitcode\\oclc_finite_only_off.bc" -mlink-builtin-bitcode "C:\\Program Files\\AMD\\ROCm\\5.5\\amdgcn\\bitcode\\oclc_correctly_rounded_sqrt_on.bc" -mlink-builtin-bitcode "C:\\Program Files\\AMD\\ROCm\\5.5\\amdgcn\\bitcode\\oclc_wavefrontsize64_off.bc" -mlink-builtin-bitcode "C:\\Program Files\\AMD\\ROCm\\5.5\\amdgcn\\bitcode\\oclc_isa_version_1030.bc" -mlink-builtin-bitcode "C:\\Program Files\\AMD\\ROCm\\5.5\\amdgcn\\bitcode\\oclc_abi_version_400.bc" -target-cpu gfx1030 -mllvm -treat-scalable-fixed-error-as-warning -fdebug-info-for-profiling -gno-column-info -gcodeview -debug-info-kind=standalone -debugger-tuning=gdb -debug-info-macro -v -resource-dir "C:\\Program Files\\AMD\\ROCm\\5.5\\lib\\clang\\17.0.0" -internal-isystem "C:\\Program Files\\AMD\\ROCm\\5.5\\lib\\clang\\17.0.0\\include\\cuda_wrappers" -idirafter "C:\\Program Files\\AMD\\ROCm\\5.5\\include" -include __clang_hip_runtime_wrapper.h -D __HIP_ARCH_GFX1030__=1 -D __HIP_ARCH_GFX1100__=1 -D __HIP_ARCH_GFX1101__=1 -D __HIP_ARCH_GFX1102__=1 -D _MT -D __clang__ -D __HIP__ -D WIN32 -D NDEBUG -D _CONSOLE -D _UNICODE -D UNICODE -I "D:\\projects\\master_thesis\\programs\\Fastest-SPH-framework\\sph_fastest\\Hybrid_Fluid_Simulation\\json\\include" -I "D:\\projects\\master_thesis\\programs\\HIPIFIED-FSPHF\\sph_fastest\\Hybrid_Fluid_Simulation\\..\\..\\..\\Common" -I "C:\\Program Files\\AMD\\ROCm\\5.5\\include" -D __HIP_ARCH_GFX1030__=1 -D __HIP_ARCH_GFX1100__=1 -D __HIP_ARCH_GFX1101__=1 -D __HIP_ARCH_GFX1102__=1 -D _MT -D __clang__ -D __HIP__ -D WIN32 -D NDEBUG -D _CONSOLE -D _UNICODE -D UNICODE -internal-isystem "C:\\Program Files\\AMD\\ROCm\\5.5\\lib\\clang\\17.0.0\\include" -internal-isystem "D:\\projects\\master_thesis\\programs\\HIPIFIED-FSPHF\\sph_fastest\\\\Hybrid_Fluid_Simulation\\GL_LIB\\glew_64\\include" -internal-isystem "D:\\projects\\master_thesis\\programs\\HIPIFIED-FSPHF\\sph_fastest\\\\Hybrid_Fluid_Simulation\\GL_LIB\\freeglut_64\\include" -internal-isystem "D:\\projects\\master_thesis\\programs\\HIPIFIED-FSPHF\\sph_fastest\\\\Hybrid_Fluid_Simulation\\json\\include" -internal-isystem "C:\\Program Files\\AMD\\ROCm\\5.5\\include" -internal-isystem "C:\\Program Files\\AMD\\ROCm\\5.5\\include" -internal-isystem "E:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Tools\\MSVC\\14.37.32822\\include" -internal-isystem "E:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Tools\\MSVC\\14.37.32822\\atlmfc\\include" -internal-isystem "E:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Auxiliary\\VS\\include" -internal-isystem "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\ucrt" -internal-isystem "E:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Auxiliary\\VS\\UnitTest\\include" -internal-isystem "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\um" -internal-isystem "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\shared" -internal-isystem "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\winrt" -internal-isystem "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\cppwinrt" -internal-isystem "Include\\um" -internal-isystem "C:\\Program Files\\AMD\\ROCm\\5.5\\lib\\clang\\17.0.0\\include" -internal-isystem "D:\\projects\\master_thesis\\programs\\HIPIFIED-FSPHF\\sph_fastest\\\\Hybrid_Fluid_Simulation\\GL_LIB\\glew_64\\include" -internal-isystem "D:\\projects\\master_thesis\\programs\\HIPIFIED-FSPHF\\sph_fastest\\\\Hybrid_Fluid_Simulation\\GL_LIB\\freeglut_64\\include" -internal-isystem "D:\\projects\\master_thesis\\programs\\HIPIFIED-FSPHF\\sph_fastest\\\\Hybrid_Fluid_Simulation\\json\\include" -internal-isystem "C:\\Program Files\\AMD\\ROCm\\5.5\\include" -internal-isystem "C:\\Program Files\\AMD\\ROCm\\5.5\\include" -internal-isystem "E:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Tools\\MSVC\\14.37.32822\\include" -internal-isystem "E:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Tools\\MSVC\\14.37.32822\\atlmfc\\include" -internal-isystem "E:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Auxiliary\\VS\\include" -internal-isystem "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\ucrt" -internal-isystem "E:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Auxiliary\\VS\\UnitTest\\include" -internal-isystem "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\um" -internal-isystem "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\shared" -internal-isystem "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\winrt" -internal-isystem "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\cppwinrt" -internal-isystem "Include\\um" -O0 -Wall -Wextra -Wdeprecated -Wno-deprecated-declarations -std=c++17 -fdeprecated-macro -fno-autolink "-fdebug-compilation-dir=D:\\projects\\master_thesis\\programs\\HIPIFIED-FSPHF\\sph_fastest\\Hybrid_Fluid_Simulation" -ferror-limit 19 -stack-protector 1 -fhip-new-launch-api -fuse-line-directives -fms-extensions -fms-compatibility -fms-compatibility-version=19.37.32826 -fdelayed-template-parsing -fcxx-exceptions -fexceptions -fno-caret-diagnostics -fdiagnostics-format msvc -fdefault-calling-conv=cdecl -flto-visibility-public-std --dependent-lib=libcmt --dependent-lib=oldnames -cuid=88573ab2cf26be51 -fcuda-allow-variadic-functions -faddrsig -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o "C:\\Users\\Jacob\\AppData\\Local\\Temp\\sph_arrangement.cu-25909e\\sph_arrangement.cu-gfx1030.o" -x hip sph_arrangement.cu.hip
+  clang -cc1 version 17.0.0 based upon LLVM 17.0.0git default target x86_64-pc-windows-msvc
+  ignoring nonexistent directory "D:\projects\master_thesis\programs\HIPIFIED-FSPHF\sph_fastest\Hybrid_Fluid_Simulation\..\..\..\Common"
+  ignoring nonexistent directory "Include\um"
+  ignoring nonexistent directory "Include\um"
+  ignoring nonexistent directory "/usr/local/include"
+  ignoring nonexistent directory "/usr/include"
+  ignoring duplicate directory "C:\Program Files\AMD\ROCm\5.5\include"
+    as it is a non-system directory that duplicates a system directory
+  ignoring duplicate directory "C:\Program Files\AMD\ROCm\5.5\include"
+  ignoring duplicate directory "C:\Program Files\AMD\ROCm\5.5\lib\clang\17.0.0\include"
+  ignoring duplicate directory "D:\projects\master_thesis\programs\HIPIFIED-FSPHF\sph_fastest\\Hybrid_Fluid_Simulation\GL_LIB\glew_64\include"
+  ignoring duplicate directory "D:\projects\master_thesis\programs\HIPIFIED-FSPHF\sph_fastest\\Hybrid_Fluid_Simulation\GL_LIB\freeglut_64\include"
+  ignoring duplicate directory "D:\projects\master_thesis\programs\HIPIFIED-FSPHF\sph_fastest\\Hybrid_Fluid_Simulation\json\include"
+  ignoring duplicate directory "C:\Program Files\AMD\ROCm\5.5\include"
+  ignoring duplicate directory "C:\Program Files\AMD\ROCm\5.5\include"
+  ignoring duplicate directory "E:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.37.32822\include"
+  ignoring duplicate directory "E:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.37.32822\atlmfc\include"
+  ignoring duplicate directory "E:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\VS\include"
+  ignoring duplicate directory "C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\ucrt"
+  ignoring duplicate directory "E:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\VS\UnitTest\include"
+  ignoring duplicate directory "C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um"
+  ignoring duplicate directory "C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared"
+  ignoring duplicate directory "C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\winrt"
+  ignoring duplicate directory "C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\cppwinrt"
+  ignoring duplicate directory "C:\Program Files\AMD\ROCm\5.5\lib\clang\17.0.0\include"
+  ignoring duplicate directory "C:\Program Files\AMD\ROCm\5.5\include"
+  #include "..." search starts here:
+  #include <...> search starts here:
+   D:\projects\master_thesis\programs\Fastest-SPH-framework\sph_fastest\Hybrid_Fluid_Simulation\json\include
+   C:\Program Files\AMD\ROCm\5.5\lib\clang\17.0.0\include\cuda_wrappers
+   C:\Program Files\AMD\ROCm\5.5\lib\clang\17.0.0\include
+   D:\projects\master_thesis\programs\HIPIFIED-FSPHF\sph_fastest\\Hybrid_Fluid_Simulation\GL_LIB\glew_64\include
+   D:\projects\master_thesis\programs\HIPIFIED-FSPHF\sph_fastest\\Hybrid_Fluid_Simulation\GL_LIB\freeglut_64\include
+   D:\projects\master_thesis\programs\HIPIFIED-FSPHF\sph_fastest\\Hybrid_Fluid_Simulation\json\include
+   C:\Program Files\AMD\ROCm\5.5\include
+   E:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.37.32822\include
+   E:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.37.32822\atlmfc\include
+   E:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\VS\include
+   C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\ucrt
+   E:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\VS\UnitTest\include
+   C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um
+   C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared
+   C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\winrt
+   C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\cppwinrt
+  End of search list.
+  In file included from sph_arrangement.cu.hip:12:
+  In file included from C:\Program Files\AMD\ROCm\5.5\include\thrust/scan.h:1656:
+  In file included from C:\Program Files\AMD\ROCm\5.5\include\thrust/detail/scan.inl:25:
+  In file included from C:\Program Files\AMD\ROCm\5.5\include\thrust/system/detail/adl/scan.h:44:
+  In file included from C:\Program Files\AMD\ROCm\5.5\include\thrust/system/hip/detail/scan.h:48:
+  In file included from C:\Program Files\AMD\ROCm\5.5\include\rocprim/rocprim.hpp:34:
+C:\Program Files\AMD\ROCm\5.5\include\rocprim/functional.hpp(44,2): warning : "GPU printf warnings for invalid rocPRIM warp operations on Navi GPUs temporarily disabled, due to performance issues with printf." 	 [-W#warnings]
+sph_arrangement.cu.hip(807,150): warning : unused parameter 'grid_size' [-Wunused-parameter]
+sph_arrangement.cu.hip(810,10): warning : comparison of integers of different signs: 'unsigned int' and 'int' [-Wsign-compare]
+sph_arrangement.cu.hip(853,10): warning : comparison of integers of different signs: 'unsigned int' and 'int' [-Wsign-compare]
+sph_arrangement.cu.hip(862,10): warning : comparison of integers of different signs: 'unsigned int' and 'int' [-Wsign-compare]
+sph_arrangement.cu.hip(884,26): warning : comparison of integers of different signs: 'unsigned int' and 'int' [-Wsign-compare]
+sph_arrangement.cu.hip(902,11): warning : comparison of integers of different signs: 'unsigned int' and 'int' [-Wsign-compare]
+sph_arrangement.cu.hip(1153,2): warning : ignoring return value of function declared with 'nodiscard' attribute [-Wunused-result]
+sph_arrangement.cu.hip(1151,6): warning : unused variable 'num_blockc' [-Wunused-variable]
+sph_arrangement.cu.hip(1246,2): warning : ignoring return value of function declared with 'nodiscard' attribute [-Wunused-result]
+sph_arrangement.cu.hip(1277,24): warning : comparison of integers of different signs: 'int' and 'unsigned int' [-Wsign-compare]
+   "C:\\Program Files\\AMD\\ROCm\\5.5\\bin\\lld" -flavor gnu -m elf64_amdgpu --no-undefined -shared -plugin-opt=-amdgpu-internalize-symbols -plugin-opt=mcpu=gfx1030 -plugin-opt=O0 --lto-CGO0 -plugin-opt=-debugger-tune=gdb -plugin-opt=-function-sections=0 -plugin-opt=-amdgpu-spill-cfi-saved-regs -o "C:\\Users\\Jacob\\AppData\\Local\\Temp\\sph_arrangement.cu-6c5b1f\\sph_arrangement.cu-gfx1030.out" "C:\\Users\\Jacob\\AppData\\Local\\Temp\\sph_arrangement.cu-25909e\\sph_arrangement.cu-gfx1030.o"
+   "C:\\Program Files\\AMD\\ROCm\\5.5\\bin\\clang.exe" -cc1 -triple amdgcn-amd-amdhsa -aux-triple x86_64-pc-windows-msvc -emit-obj -mrelax-all -mincremental-linker-compatible -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name sph_arrangement.cu.hip -mrelocation-model pic -pic-level 2 -fhalf-no-semantic-interposition -mframe-pointer=all -fno-rounding-math -mconstructor-aliases -aux-target-cpu x86-64 -fcuda-is-device -mllvm -amdgpu-internalize-symbols -fcuda-allow-variadic-functions -fvisibility=hidden -fapply-global-visibility-to-externs -mlink-builtin-bitcode "C:\\Program Files\\AMD\\ROCm\\5.5\\amdgcn\\bitcode\\hip.bc" -mlink-builtin-bitcode "C:\\Program Files\\AMD\\ROCm\\5.5\\amdgcn\\bitcode\\ocml.bc" -mlink-builtin-bitcode "C:\\Program Files\\AMD\\ROCm\\5.5\\amdgcn\\bitcode\\ockl.bc" -mlink-builtin-bitcode "C:\\Program Files\\AMD\\ROCm\\5.5\\amdgcn\\bitcode\\oclc_daz_opt_off.bc" -mlink-builtin-bitcode "C:\\Program Files\\AMD\\ROCm\\5.5\\amdgcn\\bitcode\\oclc_unsafe_math_off.bc" -mlink-builtin-bitcode "C:\\Program Files\\AMD\\ROCm\\5.5\\amdgcn\\bitcode\\oclc_finite_only_off.bc" -mlink-builtin-bitcode "C:\\Program Files\\AMD\\ROCm\\5.5\\amdgcn\\bitcode\\oclc_correctly_rounded_sqrt_on.bc" -mlink-builtin-bitcode "C:\\Program Files\\AMD\\ROCm\\5.5\\amdgcn\\bitcode\\oclc_wavefrontsize64_off.bc" -mlink-builtin-bitcode "C:\\Program Files\\AMD\\ROCm\\5.5\\amdgcn\\bitcode\\oclc_isa_version_1100.bc" -mlink-builtin-bitcode "C:\\Program Files\\AMD\\ROCm\\5.5\\amdgcn\\bitcode\\oclc_abi_version_400.bc" -target-cpu gfx1100 -mllvm -treat-scalable-fixed-error-as-warning -fdebug-info-for-profiling -gno-column-info -gcodeview -debug-info-kind=standalone -debugger-tuning=gdb -debug-info-macro -v -resource-dir "C:\\Program Files\\AMD\\ROCm\\5.5\\lib\\clang\\17.0.0" -internal-isystem "C:\\Program Files\\AMD\\ROCm\\5.5\\lib\\clang\\17.0.0\\include\\cuda_wrappers" -idirafter "C:\\Program Files\\AMD\\ROCm\\5.5\\include" -include __clang_hip_runtime_wrapper.h -D __HIP_ARCH_GFX1030__=1 -D __HIP_ARCH_GFX1100__=1 -D __HIP_ARCH_GFX1101__=1 -D __HIP_ARCH_GFX1102__=1 -D _MT -D __clang__ -D __HIP__ -D WIN32 -D NDEBUG -D _CONSOLE -D _UNICODE -D UNICODE -I "D:\\projects\\master_thesis\\programs\\Fastest-SPH-framework\\sph_fastest\\Hybrid_Fluid_Simulation\\json\\include" -I "D:\\projects\\master_thesis\\programs\\HIPIFIED-FSPHF\\sph_fastest\\Hybrid_Fluid_Simulation\\..\\..\\..\\Common" -I "C:\\Program Files\\AMD\\ROCm\\5.5\\include" -D __HIP_ARCH_GFX1030__=1 -D __HIP_ARCH_GFX1100__=1 -D __HIP_ARCH_GFX1101__=1 -D __HIP_ARCH_GFX1102__=1 -D _MT -D __clang__ -D __HIP__ -D WIN32 -D NDEBUG -D _CONSOLE -D _UNICODE -D UNICODE -internal-isystem "C:\\Program Files\\AMD\\ROCm\\5.5\\lib\\clang\\17.0.0\\include" -internal-isystem "D:\\projects\\master_thesis\\programs\\HIPIFIED-FSPHF\\sph_fastest\\\\Hybrid_Fluid_Simulation\\GL_LIB\\glew_64\\include" -internal-isystem "D:\\projects\\master_thesis\\programs\\HIPIFIED-FSPHF\\sph_fastest\\\\Hybrid_Fluid_Simulation\\GL_LIB\\freeglut_64\\include" -internal-isystem "D:\\projects\\master_thesis\\programs\\HIPIFIED-FSPHF\\sph_fastest\\\\Hybrid_Fluid_Simulation\\json\\include" -internal-isystem "C:\\Program Files\\AMD\\ROCm\\5.5\\include" -internal-isystem "C:\\Program Files\\AMD\\ROCm\\5.5\\include" -internal-isystem "E:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Tools\\MSVC\\14.37.32822\\include" -internal-isystem "E:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Tools\\MSVC\\14.37.32822\\atlmfc\\include" -internal-isystem "E:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Auxiliary\\VS\\include" -internal-isystem "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\ucrt" -internal-isystem "E:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Auxiliary\\VS\\UnitTest\\include" -internal-isystem "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\um" -internal-isystem "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\shared" -internal-isystem "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\winrt" -internal-isystem "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\cppwinrt" -internal-isystem "Include\\um" -internal-isystem "C:\\Program Files\\AMD\\ROCm\\5.5\\lib\\clang\\17.0.0\\include" -internal-isystem "D:\\projects\\master_thesis\\programs\\HIPIFIED-FSPHF\\sph_fastest\\\\Hybrid_Fluid_Simulation\\GL_LIB\\glew_64\\include" -internal-isystem "D:\\projects\\master_thesis\\programs\\HIPIFIED-FSPHF\\sph_fastest\\\\Hybrid_Fluid_Simulation\\GL_LIB\\freeglut_64\\include" -internal-isystem "D:\\projects\\master_thesis\\programs\\HIPIFIED-FSPHF\\sph_fastest\\\\Hybrid_Fluid_Simulation\\json\\include" -internal-isystem "C:\\Program Files\\AMD\\ROCm\\5.5\\include" -internal-isystem "C:\\Program Files\\AMD\\ROCm\\5.5\\include" -internal-isystem "E:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Tools\\MSVC\\14.37.32822\\include" -internal-isystem "E:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Tools\\MSVC\\14.37.32822\\atlmfc\\include" -internal-isystem "E:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Auxiliary\\VS\\include" -internal-isystem "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\ucrt" -internal-isystem "E:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Auxiliary\\VS\\UnitTest\\include" -internal-isystem "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\um" -internal-isystem "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\shared" -internal-isystem "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\winrt" -internal-isystem "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\cppwinrt" -internal-isystem "Include\\um" -O0 -Wall -Wextra -Wdeprecated -Wno-deprecated-declarations -std=c++17 -fdeprecated-macro -fno-autolink "-fdebug-compilation-dir=D:\\projects\\master_thesis\\programs\\HIPIFIED-FSPHF\\sph_fastest\\Hybrid_Fluid_Simulation" -ferror-limit 19 -stack-protector 1 -fhip-new-launch-api -fuse-line-directives -fms-extensions -fms-compatibility -fms-compatibility-version=19.37.32826 -fdelayed-template-parsing -fcxx-exceptions -fexceptions -fno-caret-diagnostics -fdiagnostics-format msvc -fdefault-calling-conv=cdecl -flto-visibility-public-std --dependent-lib=libcmt --dependent-lib=oldnames -cuid=88573ab2cf26be51 -fcuda-allow-variadic-functions -faddrsig -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o "C:\\Users\\Jacob\\AppData\\Local\\Temp\\sph_arrangement.cu-6b0643\\sph_arrangement.cu-gfx1100.o" -x hip sph_arrangement.cu.hip
+  clang -cc1 version 17.0.0 based upon LLVM 17.0.0git default target x86_64-pc-windows-msvc
+  ignoring nonexistent directory "D:\projects\master_thesis\programs\HIPIFIED-FSPHF\sph_fastest\Hybrid_Fluid_Simulation\..\..\..\Common"
+  ignoring nonexistent directory "Include\um"
+  ignoring nonexistent directory "Include\um"
+  ignoring nonexistent directory "/usr/local/include"
+  ignoring nonexistent directory "/usr/include"
+  ignoring duplicate directory "C:\Program Files\AMD\ROCm\5.5\include"
+    as it is a non-system directory that duplicates a system directory
+  ignoring duplicate directory "C:\Program Files\AMD\ROCm\5.5\include"
+  ignoring duplicate directory "C:\Program Files\AMD\ROCm\5.5\lib\clang\17.0.0\include"
+  ignoring duplicate directory "D:\projects\master_thesis\programs\HIPIFIED-FSPHF\sph_fastest\\Hybrid_Fluid_Simulation\GL_LIB\glew_64\include"
+  ignoring duplicate directory "D:\projects\master_thesis\programs\HIPIFIED-FSPHF\sph_fastest\\Hybrid_Fluid_Simulation\GL_LIB\freeglut_64\include"
+  ignoring duplicate directory "D:\projects\master_thesis\programs\HIPIFIED-FSPHF\sph_fastest\\Hybrid_Fluid_Simulation\json\include"
+  ignoring duplicate directory "C:\Program Files\AMD\ROCm\5.5\include"
+  ignoring duplicate directory "C:\Program Files\AMD\ROCm\5.5\include"
+  ignoring duplicate directory "E:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.37.32822\include"
+  ignoring duplicate directory "E:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.37.32822\atlmfc\include"
+  ignoring duplicate directory "E:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\VS\include"
+  ignoring duplicate directory "C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\ucrt"
+  ignoring duplicate directory "E:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\VS\UnitTest\include"
+  ignoring duplicate directory "C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um"
+  ignoring duplicate directory "C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared"
+  ignoring duplicate directory "C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\winrt"
+  ignoring duplicate directory "C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\cppwinrt"
+  ignoring duplicate directory "C:\Program Files\AMD\ROCm\5.5\lib\clang\17.0.0\include"
+  ignoring duplicate directory "C:\Program Files\AMD\ROCm\5.5\include"
+  #include "..." search starts here:
+  #include <...> search starts here:
+   D:\projects\master_thesis\programs\Fastest-SPH-framework\sph_fastest\Hybrid_Fluid_Simulation\json\include
+   C:\Program Files\AMD\ROCm\5.5\lib\clang\17.0.0\include\cuda_wrappers
+   C:\Program Files\AMD\ROCm\5.5\lib\clang\17.0.0\include
+   D:\projects\master_thesis\programs\HIPIFIED-FSPHF\sph_fastest\\Hybrid_Fluid_Simulation\GL_LIB\glew_64\include
+   D:\projects\master_thesis\programs\HIPIFIED-FSPHF\sph_fastest\\Hybrid_Fluid_Simulation\GL_LIB\freeglut_64\include
+   D:\projects\master_thesis\programs\HIPIFIED-FSPHF\sph_fastest\\Hybrid_Fluid_Simulation\json\include
+   C:\Program Files\AMD\ROCm\5.5\include
+   E:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.37.32822\include
+   E:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.37.32822\atlmfc\include
+   E:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\VS\include
+   C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\ucrt
+   E:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\VS\UnitTest\include
+   C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um
+   C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared
+   C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\winrt
+   C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\cppwinrt
+  End of search list.
+  In file included from sph_arrangement.cu.hip:12:
+  In file included from C:\Program Files\AMD\ROCm\5.5\include\thrust/scan.h:1656:
+  In file included from C:\Program Files\AMD\ROCm\5.5\include\thrust/detail/scan.inl:25:
+  In file included from C:\Program Files\AMD\ROCm\5.5\include\thrust/system/detail/adl/scan.h:44:
+  In file included from C:\Program Files\AMD\ROCm\5.5\include\thrust/system/hip/detail/scan.h:48:
+  In file included from C:\Program Files\AMD\ROCm\5.5\include\rocprim/rocprim.hpp:34:
+C:\Program Files\AMD\ROCm\5.5\include\rocprim/functional.hpp(44,2): warning : "GPU printf warnings for invalid rocPRIM warp operations on Navi GPUs temporarily disabled, due to performance issues with printf." 	 [-W#warnings]
+sph_arrangement.cu.hip(807,150): warning : unused parameter 'grid_size' [-Wunused-parameter]
+sph_arrangement.cu.hip(810,10): warning : comparison of integers of different signs: 'unsigned int' and 'int' [-Wsign-compare]
+sph_arrangement.cu.hip(853,10): warning : comparison of integers of different signs: 'unsigned int' and 'int' [-Wsign-compare]
+sph_arrangement.cu.hip(862,10): warning : comparison of integers of different signs: 'unsigned int' and 'int' [-Wsign-compare]
+sph_arrangement.cu.hip(884,26): warning : comparison of integers of different signs: 'unsigned int' and 'int' [-Wsign-compare]
+sph_arrangement.cu.hip(902,11): warning : comparison of integers of different signs: 'unsigned int' and 'int' [-Wsign-compare]
+sph_arrangement.cu.hip(1153,2): warning : ignoring return value of function declared with 'nodiscard' attribute [-Wunused-result]
+sph_arrangement.cu.hip(1151,6): warning : unused variable 'num_blockc' [-Wunused-variable]
+sph_arrangement.cu.hip(1246,2): warning : ignoring return value of function declared with 'nodiscard' attribute [-Wunused-result]
+sph_arrangement.cu.hip(1277,24): warning : comparison of integers of different signs: 'int' and 'unsigned int' [-Wsign-compare]
+   "C:\\Program Files\\AMD\\ROCm\\5.5\\bin\\lld" -flavor gnu -m elf64_amdgpu --no-undefined -shared -plugin-opt=-amdgpu-internalize-symbols -plugin-opt=mcpu=gfx1100 -plugin-opt=O0 --lto-CGO0 -plugin-opt=-debugger-tune=gdb -plugin-opt=-function-sections=0 -plugin-opt=-amdgpu-spill-cfi-saved-regs -o "C:\\Users\\Jacob\\AppData\\Local\\Temp\\sph_arrangement.cu-b60bb9\\sph_arrangement.cu-gfx1100.out" "C:\\Users\\Jacob\\AppData\\Local\\Temp\\sph_arrangement.cu-6b0643\\sph_arrangement.cu-gfx1100.o"
+   "C:\\Program Files\\AMD\\ROCm\\5.5\\bin\\clang.exe" -cc1 -triple amdgcn-amd-amdhsa -aux-triple x86_64-pc-windows-msvc -emit-obj -mrelax-all -mincremental-linker-compatible -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name sph_arrangement.cu.hip -mrelocation-model pic -pic-level 2 -fhalf-no-semantic-interposition -mframe-pointer=all -fno-rounding-math -mconstructor-aliases -aux-target-cpu x86-64 -fcuda-is-device -mllvm -amdgpu-internalize-symbols -fcuda-allow-variadic-functions -fvisibility=hidden -fapply-global-visibility-to-externs -mlink-builtin-bitcode "C:\\Program Files\\AMD\\ROCm\\5.5\\amdgcn\\bitcode\\hip.bc" -mlink-builtin-bitcode "C:\\Program Files\\AMD\\ROCm\\5.5\\amdgcn\\bitcode\\ocml.bc" -mlink-builtin-bitcode "C:\\Program Files\\AMD\\ROCm\\5.5\\amdgcn\\bitcode\\ockl.bc" -mlink-builtin-bitcode "C:\\Program Files\\AMD\\ROCm\\5.5\\amdgcn\\bitcode\\oclc_daz_opt_off.bc" -mlink-builtin-bitcode "C:\\Program Files\\AMD\\ROCm\\5.5\\amdgcn\\bitcode\\oclc_unsafe_math_off.bc" -mlink-builtin-bitcode "C:\\Program Files\\AMD\\ROCm\\5.5\\amdgcn\\bitcode\\oclc_finite_only_off.bc" -mlink-builtin-bitcode "C:\\Program Files\\AMD\\ROCm\\5.5\\amdgcn\\bitcode\\oclc_correctly_rounded_sqrt_on.bc" -mlink-builtin-bitcode "C:\\Program Files\\AMD\\ROCm\\5.5\\amdgcn\\bitcode\\oclc_wavefrontsize64_off.bc" -mlink-builtin-bitcode "C:\\Program Files\\AMD\\ROCm\\5.5\\amdgcn\\bitcode\\oclc_isa_version_1101.bc" -mlink-builtin-bitcode "C:\\Program Files\\AMD\\ROCm\\5.5\\amdgcn\\bitcode\\oclc_abi_version_400.bc" -target-cpu gfx1101 -mllvm -treat-scalable-fixed-error-as-warning -fdebug-info-for-profiling -gno-column-info -gcodeview -debug-info-kind=standalone -debugger-tuning=gdb -debug-info-macro -v -resource-dir "C:\\Program Files\\AMD\\ROCm\\5.5\\lib\\clang\\17.0.0" -internal-isystem "C:\\Program Files\\AMD\\ROCm\\5.5\\lib\\clang\\17.0.0\\include\\cuda_wrappers" -idirafter "C:\\Program Files\\AMD\\ROCm\\5.5\\include" -include __clang_hip_runtime_wrapper.h -D __HIP_ARCH_GFX1030__=1 -D __HIP_ARCH_GFX1100__=1 -D __HIP_ARCH_GFX1101__=1 -D __HIP_ARCH_GFX1102__=1 -D _MT -D __clang__ -D __HIP__ -D WIN32 -D NDEBUG -D _CONSOLE -D _UNICODE -D UNICODE -I "D:\\projects\\master_thesis\\programs\\Fastest-SPH-framework\\sph_fastest\\Hybrid_Fluid_Simulation\\json\\include" -I "D:\\projects\\master_thesis\\programs\\HIPIFIED-FSPHF\\sph_fastest\\Hybrid_Fluid_Simulation\\..\\..\\..\\Common" -I "C:\\Program Files\\AMD\\ROCm\\5.5\\include" -D __HIP_ARCH_GFX1030__=1 -D __HIP_ARCH_GFX1100__=1 -D __HIP_ARCH_GFX1101__=1 -D __HIP_ARCH_GFX1102__=1 -D _MT -D __clang__ -D __HIP__ -D WIN32 -D NDEBUG -D _CONSOLE -D _UNICODE -D UNICODE -internal-isystem "C:\\Program Files\\AMD\\ROCm\\5.5\\lib\\clang\\17.0.0\\include" -internal-isystem "D:\\projects\\master_thesis\\programs\\HIPIFIED-FSPHF\\sph_fastest\\\\Hybrid_Fluid_Simulation\\GL_LIB\\glew_64\\include" -internal-isystem "D:\\projects\\master_thesis\\programs\\HIPIFIED-FSPHF\\sph_fastest\\\\Hybrid_Fluid_Simulation\\GL_LIB\\freeglut_64\\include" -internal-isystem "D:\\projects\\master_thesis\\programs\\HIPIFIED-FSPHF\\sph_fastest\\\\Hybrid_Fluid_Simulation\\json\\include" -internal-isystem "C:\\Program Files\\AMD\\ROCm\\5.5\\include" -internal-isystem "C:\\Program Files\\AMD\\ROCm\\5.5\\include" -internal-isystem "E:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Tools\\MSVC\\14.37.32822\\include" -internal-isystem "E:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Tools\\MSVC\\14.37.32822\\atlmfc\\include" -internal-isystem "E:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Auxiliary\\VS\\include" -internal-isystem "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\ucrt" -internal-isystem "E:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Auxiliary\\VS\\UnitTest\\include" -internal-isystem "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\um" -internal-isystem "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\shared" -internal-isystem "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\winrt" -internal-isystem "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\cppwinrt" -internal-isystem "Include\\um" -internal-isystem "C:\\Program Files\\AMD\\ROCm\\5.5\\lib\\clang\\17.0.0\\include" -internal-isystem "D:\\projects\\master_thesis\\programs\\HIPIFIED-FSPHF\\sph_fastest\\\\Hybrid_Fluid_Simulation\\GL_LIB\\glew_64\\include" -internal-isystem "D:\\projects\\master_thesis\\programs\\HIPIFIED-FSPHF\\sph_fastest\\\\Hybrid_Fluid_Simulation\\GL_LIB\\freeglut_64\\include" -internal-isystem "D:\\projects\\master_thesis\\programs\\HIPIFIED-FSPHF\\sph_fastest\\\\Hybrid_Fluid_Simulation\\json\\include" -internal-isystem "C:\\Program Files\\AMD\\ROCm\\5.5\\include" -internal-isystem "C:\\Program Files\\AMD\\ROCm\\5.5\\include" -internal-isystem "E:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Tools\\MSVC\\14.37.32822\\include" -internal-isystem "E:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Tools\\MSVC\\14.37.32822\\atlmfc\\include" -internal-isystem "E:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Auxiliary\\VS\\include" -internal-isystem "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\ucrt" -internal-isystem "E:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Auxiliary\\VS\\UnitTest\\include" -internal-isystem "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\um" -internal-isystem "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\shared" -internal-isystem "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\winrt" -internal-isystem "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\cppwinrt" -internal-isystem "Include\\um" -O0 -Wall -Wextra -Wdeprecated -Wno-deprecated-declarations -std=c++17 -fdeprecated-macro -fno-autolink "-fdebug-compilation-dir=D:\\projects\\master_thesis\\programs\\HIPIFIED-FSPHF\\sph_fastest\\Hybrid_Fluid_Simulation" -ferror-limit 19 -stack-protector 1 -fhip-new-launch-api -fuse-line-directives -fms-extensions -fms-compatibility -fms-compatibility-version=19.37.32826 -fdelayed-template-parsing -fcxx-exceptions -fexceptions -fno-caret-diagnostics -fdiagnostics-format msvc -fdefault-calling-conv=cdecl -flto-visibility-public-std --dependent-lib=libcmt --dependent-lib=oldnames -cuid=88573ab2cf26be51 -fcuda-allow-variadic-functions -faddrsig -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o "C:\\Users\\Jacob\\AppData\\Local\\Temp\\sph_arrangement.cu-194709\\sph_arrangement.cu-gfx1101.o" -x hip sph_arrangement.cu.hip
+  clang -cc1 version 17.0.0 based upon LLVM 17.0.0git default target x86_64-pc-windows-msvc
+  ignoring nonexistent directory "D:\projects\master_thesis\programs\HIPIFIED-FSPHF\sph_fastest\Hybrid_Fluid_Simulation\..\..\..\Common"
+  ignoring nonexistent directory "Include\um"
+  ignoring nonexistent directory "Include\um"
+  ignoring nonexistent directory "/usr/local/include"
+  ignoring nonexistent directory "/usr/include"
+  ignoring duplicate directory "C:\Program Files\AMD\ROCm\5.5\include"
+    as it is a non-system directory that duplicates a system directory
+  ignoring duplicate directory "C:\Program Files\AMD\ROCm\5.5\include"
+  ignoring duplicate directory "C:\Program Files\AMD\ROCm\5.5\lib\clang\17.0.0\include"
+  ignoring duplicate directory "D:\projects\master_thesis\programs\HIPIFIED-FSPHF\sph_fastest\\Hybrid_Fluid_Simulation\GL_LIB\glew_64\include"
+  ignoring duplicate directory "D:\projects\master_thesis\programs\HIPIFIED-FSPHF\sph_fastest\\Hybrid_Fluid_Simulation\GL_LIB\freeglut_64\include"
+  ignoring duplicate directory "D:\projects\master_thesis\programs\HIPIFIED-FSPHF\sph_fastest\\Hybrid_Fluid_Simulation\json\include"
+  ignoring duplicate directory "C:\Program Files\AMD\ROCm\5.5\include"
+  ignoring duplicate directory "C:\Program Files\AMD\ROCm\5.5\include"
+  ignoring duplicate directory "E:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.37.32822\include"
+  ignoring duplicate directory "E:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.37.32822\atlmfc\include"
+  ignoring duplicate directory "E:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\VS\include"
+  ignoring duplicate directory "C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\ucrt"
+  ignoring duplicate directory "E:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\VS\UnitTest\include"
+  ignoring duplicate directory "C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um"
+  ignoring duplicate directory "C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared"
+  ignoring duplicate directory "C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\winrt"
+  ignoring duplicate directory "C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\cppwinrt"
+  ignoring duplicate directory "C:\Program Files\AMD\ROCm\5.5\lib\clang\17.0.0\include"
+  ignoring duplicate directory "C:\Program Files\AMD\ROCm\5.5\include"
+  #include "..." search starts here:
+  #include <...> search starts here:
+   D:\projects\master_thesis\programs\Fastest-SPH-framework\sph_fastest\Hybrid_Fluid_Simulation\json\include
+   C:\Program Files\AMD\ROCm\5.5\lib\clang\17.0.0\include\cuda_wrappers
+   C:\Program Files\AMD\ROCm\5.5\lib\clang\17.0.0\include
+   D:\projects\master_thesis\programs\HIPIFIED-FSPHF\sph_fastest\\Hybrid_Fluid_Simulation\GL_LIB\glew_64\include
+   D:\projects\master_thesis\programs\HIPIFIED-FSPHF\sph_fastest\\Hybrid_Fluid_Simulation\GL_LIB\freeglut_64\include
+   D:\projects\master_thesis\programs\HIPIFIED-FSPHF\sph_fastest\\Hybrid_Fluid_Simulation\json\include
+   C:\Program Files\AMD\ROCm\5.5\include
+   E:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.37.32822\include
+   E:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.37.32822\atlmfc\include
+   E:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\VS\include
+   C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\ucrt
+   E:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\VS\UnitTest\include
+   C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um
+   C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared
+   C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\winrt
+   C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\cppwinrt
+  End of search list.
+  In file included from sph_arrangement.cu.hip:12:
+  In file included from C:\Program Files\AMD\ROCm\5.5\include\thrust/scan.h:1656:
+  In file included from C:\Program Files\AMD\ROCm\5.5\include\thrust/detail/scan.inl:25:
+  In file included from C:\Program Files\AMD\ROCm\5.5\include\thrust/system/detail/adl/scan.h:44:
+  In file included from C:\Program Files\AMD\ROCm\5.5\include\thrust/system/hip/detail/scan.h:48:
+  In file included from C:\Program Files\AMD\ROCm\5.5\include\rocprim/rocprim.hpp:34:
+C:\Program Files\AMD\ROCm\5.5\include\rocprim/functional.hpp(44,2): warning : "GPU printf warnings for invalid rocPRIM warp operations on Navi GPUs temporarily disabled, due to performance issues with printf." 	 [-W#warnings]
+sph_arrangement.cu.hip(807,150): warning : unused parameter 'grid_size' [-Wunused-parameter]
+sph_arrangement.cu.hip(810,10): warning : comparison of integers of different signs: 'unsigned int' and 'int' [-Wsign-compare]
+sph_arrangement.cu.hip(853,10): warning : comparison of integers of different signs: 'unsigned int' and 'int' [-Wsign-compare]
+sph_arrangement.cu.hip(862,10): warning : comparison of integers of different signs: 'unsigned int' and 'int' [-Wsign-compare]
+sph_arrangement.cu.hip(884,26): warning : comparison of integers of different signs: 'unsigned int' and 'int' [-Wsign-compare]
+sph_arrangement.cu.hip(902,11): warning : comparison of integers of different signs: 'unsigned int' and 'int' [-Wsign-compare]
+sph_arrangement.cu.hip(1153,2): warning : ignoring return value of function declared with 'nodiscard' attribute [-Wunused-result]
+sph_arrangement.cu.hip(1151,6): warning : unused variable 'num_blockc' [-Wunused-variable]
+sph_arrangement.cu.hip(1246,2): warning : ignoring return value of function declared with 'nodiscard' attribute [-Wunused-result]
+sph_arrangement.cu.hip(1277,24): warning : comparison of integers of different signs: 'int' and 'unsigned int' [-Wsign-compare]
+   "C:\\Program Files\\AMD\\ROCm\\5.5\\bin\\lld" -flavor gnu -m elf64_amdgpu --no-undefined -shared -plugin-opt=-amdgpu-internalize-symbols -plugin-opt=mcpu=gfx1101 -plugin-opt=O0 --lto-CGO0 -plugin-opt=-debugger-tune=gdb -plugin-opt=-function-sections=0 -plugin-opt=-amdgpu-spill-cfi-saved-regs -o "C:\\Users\\Jacob\\AppData\\Local\\Temp\\sph_arrangement.cu-1c4a7b\\sph_arrangement.cu-gfx1101.out" "C:\\Users\\Jacob\\AppData\\Local\\Temp\\sph_arrangement.cu-194709\\sph_arrangement.cu-gfx1101.o"
+   "C:\\Program Files\\AMD\\ROCm\\5.5\\bin\\clang.exe" -cc1 -triple amdgcn-amd-amdhsa -aux-triple x86_64-pc-windows-msvc -emit-obj -mrelax-all -mincremental-linker-compatible -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name sph_arrangement.cu.hip -mrelocation-model pic -pic-level 2 -fhalf-no-semantic-interposition -mframe-pointer=all -fno-rounding-math -mconstructor-aliases -aux-target-cpu x86-64 -fcuda-is-device -mllvm -amdgpu-internalize-symbols -fcuda-allow-variadic-functions -fvisibility=hidden -fapply-global-visibility-to-externs -mlink-builtin-bitcode "C:\\Program Files\\AMD\\ROCm\\5.5\\amdgcn\\bitcode\\hip.bc" -mlink-builtin-bitcode "C:\\Program Files\\AMD\\ROCm\\5.5\\amdgcn\\bitcode\\ocml.bc" -mlink-builtin-bitcode "C:\\Program Files\\AMD\\ROCm\\5.5\\amdgcn\\bitcode\\ockl.bc" -mlink-builtin-bitcode "C:\\Program Files\\AMD\\ROCm\\5.5\\amdgcn\\bitcode\\oclc_daz_opt_off.bc" -mlink-builtin-bitcode "C:\\Program Files\\AMD\\ROCm\\5.5\\amdgcn\\bitcode\\oclc_unsafe_math_off.bc" -mlink-builtin-bitcode "C:\\Program Files\\AMD\\ROCm\\5.5\\amdgcn\\bitcode\\oclc_finite_only_off.bc" -mlink-builtin-bitcode "C:\\Program Files\\AMD\\ROCm\\5.5\\amdgcn\\bitcode\\oclc_correctly_rounded_sqrt_on.bc" -mlink-builtin-bitcode "C:\\Program Files\\AMD\\ROCm\\5.5\\amdgcn\\bitcode\\oclc_wavefrontsize64_off.bc" -mlink-builtin-bitcode "C:\\Program Files\\AMD\\ROCm\\5.5\\amdgcn\\bitcode\\oclc_isa_version_1102.bc" -mlink-builtin-bitcode "C:\\Program Files\\AMD\\ROCm\\5.5\\amdgcn\\bitcode\\oclc_abi_version_400.bc" -target-cpu gfx1102 -mllvm -treat-scalable-fixed-error-as-warning -fdebug-info-for-profiling -gno-column-info -gcodeview -debug-info-kind=standalone -debugger-tuning=gdb -debug-info-macro -v -resource-dir "C:\\Program Files\\AMD\\ROCm\\5.5\\lib\\clang\\17.0.0" -internal-isystem "C:\\Program Files\\AMD\\ROCm\\5.5\\lib\\clang\\17.0.0\\include\\cuda_wrappers" -idirafter "C:\\Program Files\\AMD\\ROCm\\5.5\\include" -include __clang_hip_runtime_wrapper.h -D __HIP_ARCH_GFX1030__=1 -D __HIP_ARCH_GFX1100__=1 -D __HIP_ARCH_GFX1101__=1 -D __HIP_ARCH_GFX1102__=1 -D _MT -D __clang__ -D __HIP__ -D WIN32 -D NDEBUG -D _CONSOLE -D _UNICODE -D UNICODE -I "D:\\projects\\master_thesis\\programs\\Fastest-SPH-framework\\sph_fastest\\Hybrid_Fluid_Simulation\\json\\include" -I "D:\\projects\\master_thesis\\programs\\HIPIFIED-FSPHF\\sph_fastest\\Hybrid_Fluid_Simulation\\..\\..\\..\\Common" -I "C:\\Program Files\\AMD\\ROCm\\5.5\\include" -D __HIP_ARCH_GFX1030__=1 -D __HIP_ARCH_GFX1100__=1 -D __HIP_ARCH_GFX1101__=1 -D __HIP_ARCH_GFX1102__=1 -D _MT -D __clang__ -D __HIP__ -D WIN32 -D NDEBUG -D _CONSOLE -D _UNICODE -D UNICODE -internal-isystem "C:\\Program Files\\AMD\\ROCm\\5.5\\lib\\clang\\17.0.0\\include" -internal-isystem "D:\\projects\\master_thesis\\programs\\HIPIFIED-FSPHF\\sph_fastest\\\\Hybrid_Fluid_Simulation\\GL_LIB\\glew_64\\include" -internal-isystem "D:\\projects\\master_thesis\\programs\\HIPIFIED-FSPHF\\sph_fastest\\\\Hybrid_Fluid_Simulation\\GL_LIB\\freeglut_64\\include" -internal-isystem "D:\\projects\\master_thesis\\programs\\HIPIFIED-FSPHF\\sph_fastest\\\\Hybrid_Fluid_Simulation\\json\\include" -internal-isystem "C:\\Program Files\\AMD\\ROCm\\5.5\\include" -internal-isystem "C:\\Program Files\\AMD\\ROCm\\5.5\\include" -internal-isystem "E:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Tools\\MSVC\\14.37.32822\\include" -internal-isystem "E:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Tools\\MSVC\\14.37.32822\\atlmfc\\include" -internal-isystem "E:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Auxiliary\\VS\\include" -internal-isystem "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\ucrt" -internal-isystem "E:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Auxiliary\\VS\\UnitTest\\include" -internal-isystem "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\um" -internal-isystem "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\shared" -internal-isystem "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\winrt" -internal-isystem "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\cppwinrt" -internal-isystem "Include\\um" -internal-isystem "C:\\Program Files\\AMD\\ROCm\\5.5\\lib\\clang\\17.0.0\\include" -internal-isystem "D:\\projects\\master_thesis\\programs\\HIPIFIED-FSPHF\\sph_fastest\\\\Hybrid_Fluid_Simulation\\GL_LIB\\glew_64\\include" -internal-isystem "D:\\projects\\master_thesis\\programs\\HIPIFIED-FSPHF\\sph_fastest\\\\Hybrid_Fluid_Simulation\\GL_LIB\\freeglut_64\\include" -internal-isystem "D:\\projects\\master_thesis\\programs\\HIPIFIED-FSPHF\\sph_fastest\\\\Hybrid_Fluid_Simulation\\json\\include" -internal-isystem "C:\\Program Files\\AMD\\ROCm\\5.5\\include" -internal-isystem "C:\\Program Files\\AMD\\ROCm\\5.5\\include" -internal-isystem "E:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Tools\\MSVC\\14.37.32822\\include" -internal-isystem "E:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Tools\\MSVC\\14.37.32822\\atlmfc\\include" -internal-isystem "E:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Auxiliary\\VS\\include" -internal-isystem "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\ucrt" -internal-isystem "E:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Auxiliary\\VS\\UnitTest\\include" -internal-isystem "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\um" -internal-isystem "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\shared" -internal-isystem "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\winrt" -internal-isystem "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\cppwinrt" -internal-isystem "Include\\um" -O0 -Wall -Wextra -Wdeprecated -Wno-deprecated-declarations -std=c++17 -fdeprecated-macro -fno-autolink "-fdebug-compilation-dir=D:\\projects\\master_thesis\\programs\\HIPIFIED-FSPHF\\sph_fastest\\Hybrid_Fluid_Simulation" -ferror-limit 19 -stack-protector 1 -fhip-new-launch-api -fuse-line-directives -fms-extensions -fms-compatibility -fms-compatibility-version=19.37.32826 -fdelayed-template-parsing -fcxx-exceptions -fexceptions -fno-caret-diagnostics -fdiagnostics-format msvc -fdefault-calling-conv=cdecl -flto-visibility-public-std --dependent-lib=libcmt --dependent-lib=oldnames -cuid=88573ab2cf26be51 -fcuda-allow-variadic-functions -faddrsig -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o "C:\\Users\\Jacob\\AppData\\Local\\Temp\\sph_arrangement.cu-655252\\sph_arrangement.cu-gfx1102.o" -x hip sph_arrangement.cu.hip
+  clang -cc1 version 17.0.0 based upon LLVM 17.0.0git default target x86_64-pc-windows-msvc
+  ignoring nonexistent directory "D:\projects\master_thesis\programs\HIPIFIED-FSPHF\sph_fastest\Hybrid_Fluid_Simulation\..\..\..\Common"
+  ignoring nonexistent directory "Include\um"
+  ignoring nonexistent directory "Include\um"
+  ignoring nonexistent directory "/usr/local/include"
+  ignoring nonexistent directory "/usr/include"
+  ignoring duplicate directory "C:\Program Files\AMD\ROCm\5.5\include"
+    as it is a non-system directory that duplicates a system directory
+  ignoring duplicate directory "C:\Program Files\AMD\ROCm\5.5\include"
+  ignoring duplicate directory "C:\Program Files\AMD\ROCm\5.5\lib\clang\17.0.0\include"
+  ignoring duplicate directory "D:\projects\master_thesis\programs\HIPIFIED-FSPHF\sph_fastest\\Hybrid_Fluid_Simulation\GL_LIB\glew_64\include"
+  ignoring duplicate directory "D:\projects\master_thesis\programs\HIPIFIED-FSPHF\sph_fastest\\Hybrid_Fluid_Simulation\GL_LIB\freeglut_64\include"
+  ignoring duplicate directory "D:\projects\master_thesis\programs\HIPIFIED-FSPHF\sph_fastest\\Hybrid_Fluid_Simulation\json\include"
+  ignoring duplicate directory "C:\Program Files\AMD\ROCm\5.5\include"
+  ignoring duplicate directory "C:\Program Files\AMD\ROCm\5.5\include"
+  ignoring duplicate directory "E:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.37.32822\include"
+  ignoring duplicate directory "E:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.37.32822\atlmfc\include"
+  ignoring duplicate directory "E:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\VS\include"
+  ignoring duplicate directory "C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\ucrt"
+  ignoring duplicate directory "E:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\VS\UnitTest\include"
+  ignoring duplicate directory "C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um"
+  ignoring duplicate directory "C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared"
+  ignoring duplicate directory "C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\winrt"
+  ignoring duplicate directory "C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\cppwinrt"
+  ignoring duplicate directory "C:\Program Files\AMD\ROCm\5.5\lib\clang\17.0.0\include"
+  ignoring duplicate directory "C:\Program Files\AMD\ROCm\5.5\include"
+  #include "..." search starts here:
+  #include <...> search starts here:
+   D:\projects\master_thesis\programs\Fastest-SPH-framework\sph_fastest\Hybrid_Fluid_Simulation\json\include
+   C:\Program Files\AMD\ROCm\5.5\lib\clang\17.0.0\include\cuda_wrappers
+   C:\Program Files\AMD\ROCm\5.5\lib\clang\17.0.0\include
+   D:\projects\master_thesis\programs\HIPIFIED-FSPHF\sph_fastest\\Hybrid_Fluid_Simulation\GL_LIB\glew_64\include
+   D:\projects\master_thesis\programs\HIPIFIED-FSPHF\sph_fastest\\Hybrid_Fluid_Simulation\GL_LIB\freeglut_64\include
+   D:\projects\master_thesis\programs\HIPIFIED-FSPHF\sph_fastest\\Hybrid_Fluid_Simulation\json\include
+   C:\Program Files\AMD\ROCm\5.5\include
+   E:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.37.32822\include
+   E:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.37.32822\atlmfc\include
+   E:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\VS\include
+   C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\ucrt
+   E:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\VS\UnitTest\include
+   C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um
+   C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared
+   C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\winrt
+   C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\cppwinrt
+  End of search list.
+  In file included from sph_arrangement.cu.hip:12:
+  In file included from C:\Program Files\AMD\ROCm\5.5\include\thrust/scan.h:1656:
+  In file included from C:\Program Files\AMD\ROCm\5.5\include\thrust/detail/scan.inl:25:
+  In file included from C:\Program Files\AMD\ROCm\5.5\include\thrust/system/detail/adl/scan.h:44:
+  In file included from C:\Program Files\AMD\ROCm\5.5\include\thrust/system/hip/detail/scan.h:48:
+  In file included from C:\Program Files\AMD\ROCm\5.5\include\rocprim/rocprim.hpp:34:
+C:\Program Files\AMD\ROCm\5.5\include\rocprim/functional.hpp(44,2): warning : "GPU printf warnings for invalid rocPRIM warp operations on Navi GPUs temporarily disabled, due to performance issues with printf." 	 [-W#warnings]
+sph_arrangement.cu.hip(807,150): warning : unused parameter 'grid_size' [-Wunused-parameter]
+sph_arrangement.cu.hip(810,10): warning : comparison of integers of different signs: 'unsigned int' and 'int' [-Wsign-compare]
+sph_arrangement.cu.hip(853,10): warning : comparison of integers of different signs: 'unsigned int' and 'int' [-Wsign-compare]
+sph_arrangement.cu.hip(862,10): warning : comparison of integers of different signs: 'unsigned int' and 'int' [-Wsign-compare]
+sph_arrangement.cu.hip(884,26): warning : comparison of integers of different signs: 'unsigned int' and 'int' [-Wsign-compare]
+sph_arrangement.cu.hip(902,11): warning : comparison of integers of different signs: 'unsigned int' and 'int' [-Wsign-compare]
+sph_arrangement.cu.hip(1153,2): warning : ignoring return value of function declared with 'nodiscard' attribute [-Wunused-result]
+sph_arrangement.cu.hip(1151,6): warning : unused variable 'num_blockc' [-Wunused-variable]
+sph_arrangement.cu.hip(1246,2): warning : ignoring return value of function declared with 'nodiscard' attribute [-Wunused-result]
+sph_arrangement.cu.hip(1277,24): warning : comparison of integers of different signs: 'int' and 'unsigned int' [-Wsign-compare]
+   "C:\\Program Files\\AMD\\ROCm\\5.5\\bin\\lld" -flavor gnu -m elf64_amdgpu --no-undefined -shared -plugin-opt=-amdgpu-internalize-symbols -plugin-opt=mcpu=gfx1102 -plugin-opt=O0 --lto-CGO0 -plugin-opt=-debugger-tune=gdb -plugin-opt=-function-sections=0 -plugin-opt=-amdgpu-spill-cfi-saved-regs -o "C:\\Users\\Jacob\\AppData\\Local\\Temp\\sph_arrangement.cu-b334d7\\sph_arrangement.cu-gfx1102.out" "C:\\Users\\Jacob\\AppData\\Local\\Temp\\sph_arrangement.cu-655252\\sph_arrangement.cu-gfx1102.o"
+   "C:\\Program Files\\AMD\\ROCm\\5.5\\bin\\clang-offload-bundler" -type=o -bundle-align=4096 -targets=host-x86_64-unknown-linux,hipv4-amdgcn-amd-amdhsa--gfx1030,hipv4-amdgcn-amd-amdhsa--gfx1100,hipv4-amdgcn-amd-amdhsa--gfx1101,hipv4-amdgcn-amd-amdhsa--gfx1102 -input=nul "-input=C:\\Users\\Jacob\\AppData\\Local\\Temp\\sph_arrangement.cu-6c5b1f\\sph_arrangement.cu-gfx1030.out" "-input=C:\\Users\\Jacob\\AppData\\Local\\Temp\\sph_arrangement.cu-b60bb9\\sph_arrangement.cu-gfx1100.out" "-input=C:\\Users\\Jacob\\AppData\\Local\\Temp\\sph_arrangement.cu-1c4a7b\\sph_arrangement.cu-gfx1101.out" "-input=C:\\Users\\Jacob\\AppData\\Local\\Temp\\sph_arrangement.cu-b334d7\\sph_arrangement.cu-gfx1102.out" "-output=C:\\Users\\Jacob\\AppData\\Local\\Temp\\sph_arrangement.cu-c4f2fb.hipfb"
+   "C:\\Program Files\\AMD\\ROCm\\5.5\\bin\\clang.exe" -cc1 -triple x86_64-pc-windows-msvc19.37.32826 -aux-triple amdgcn-amd-amdhsa -emit-obj -mrelax-all -mincremental-linker-compatible -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name sph_arrangement.cu.hip -mrelocation-model pic -pic-level 2 -mframe-pointer=none -fmath-errno -fno-rounding-math -mconstructor-aliases -funwind-tables=2 -target-cpu x86-64 -tune-cpu generic -mllvm -treat-scalable-fixed-error-as-warning -fdebug-info-for-profiling -gno-column-info -gcodeview -debug-info-kind=standalone -debugger-tuning=gdb -debug-info-macro -v "-fcoverage-compilation-dir=D:\\projects\\master_thesis\\programs\\HIPIFIED-FSPHF\\sph_fastest\\Hybrid_Fluid_Simulation" -resource-dir "C:\\Program Files\\AMD\\ROCm\\5.5\\lib\\clang\\17.0.0" -internal-isystem "C:\\Program Files\\AMD\\ROCm\\5.5\\lib\\clang\\17.0.0\\include\\cuda_wrappers" -idirafter "C:\\Program Files\\AMD\\ROCm\\5.5\\include" -include __clang_hip_runtime_wrapper.h -I "D:\\projects\\master_thesis\\programs\\Fastest-SPH-framework\\sph_fastest\\Hybrid_Fluid_Simulation\\json\\include" -I "D:\\projects\\master_thesis\\programs\\HIPIFIED-FSPHF\\sph_fastest\\Hybrid_Fluid_Simulation\\..\\..\\..\\Common" -I "C:\\Program Files\\AMD\\ROCm\\5.5\\include" -D __HIP_ARCH_GFX1030__=1 -D __HIP_ARCH_GFX1100__=1 -D __HIP_ARCH_GFX1101__=1 -D __HIP_ARCH_GFX1102__=1 -D _MT -D __clang__ -D __HIP__ -D WIN32 -D NDEBUG -D _CONSOLE -D _UNICODE -D UNICODE -internal-isystem "C:\\Program Files\\AMD\\ROCm\\5.5\\lib\\clang\\17.0.0\\include" -internal-isystem "D:\\projects\\master_thesis\\programs\\HIPIFIED-FSPHF\\sph_fastest\\\\Hybrid_Fluid_Simulation\\GL_LIB\\glew_64\\include" -internal-isystem "D:\\projects\\master_thesis\\programs\\HIPIFIED-FSPHF\\sph_fastest\\\\Hybrid_Fluid_Simulation\\GL_LIB\\freeglut_64\\include" -internal-isystem "D:\\projects\\master_thesis\\programs\\HIPIFIED-FSPHF\\sph_fastest\\\\Hybrid_Fluid_Simulation\\json\\include" -internal-isystem "C:\\Program Files\\AMD\\ROCm\\5.5\\include" -internal-isystem "C:\\Program Files\\AMD\\ROCm\\5.5\\include" -internal-isystem "E:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Tools\\MSVC\\14.37.32822\\include" -internal-isystem "E:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Tools\\MSVC\\14.37.32822\\atlmfc\\include" -internal-isystem "E:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Auxiliary\\VS\\include" -internal-isystem "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\ucrt" -internal-isystem "E:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Auxiliary\\VS\\UnitTest\\include" -internal-isystem "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\um" -internal-isystem "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\shared" -internal-isystem "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\winrt" -internal-isystem "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\cppwinrt" -internal-isystem "Include\\um" -internal-isystem "C:\\Program Files\\AMD\\ROCm\\5.5\\lib\\clang\\17.0.0\\include" -internal-isystem "D:\\projects\\master_thesis\\programs\\HIPIFIED-FSPHF\\sph_fastest\\\\Hybrid_Fluid_Simulation\\GL_LIB\\glew_64\\include" -internal-isystem "D:\\projects\\master_thesis\\programs\\HIPIFIED-FSPHF\\sph_fastest\\\\Hybrid_Fluid_Simulation\\GL_LIB\\freeglut_64\\include" -internal-isystem "D:\\projects\\master_thesis\\programs\\HIPIFIED-FSPHF\\sph_fastest\\\\Hybrid_Fluid_Simulation\\json\\include" -internal-isystem "C:\\Program Files\\AMD\\ROCm\\5.5\\include" -internal-isystem "C:\\Program Files\\AMD\\ROCm\\5.5\\include" -internal-isystem "E:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Tools\\MSVC\\14.37.32822\\include" -internal-isystem "E:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Tools\\MSVC\\14.37.32822\\atlmfc\\include" -internal-isystem "E:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Auxiliary\\VS\\include" -internal-isystem "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\ucrt" -internal-isystem "E:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Auxiliary\\VS\\UnitTest\\include" -internal-isystem "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\um" -internal-isystem "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\shared" -internal-isystem "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\winrt" -internal-isystem "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\cppwinrt" -internal-isystem "Include\\um" -O0 -Wall -Wextra -Wdeprecated -Wno-deprecated-declarations -std=c++17 -fdeprecated-macro "-fdebug-compilation-dir=D:\\projects\\master_thesis\\programs\\HIPIFIED-FSPHF\\sph_fastest\\Hybrid_Fluid_Simulation" -ferror-limit 19 -stack-protector 1 -fhip-new-launch-api -fno-use-cxa-atexit -fuse-line-directives -fms-extensions -fms-compatibility -fms-compatibility-version=19.37.32826 -fdelayed-template-parsing -fcxx-exceptions -fexceptions -fno-caret-diagnostics -fdiagnostics-format msvc -fdefault-calling-conv=cdecl -flto-visibility-public-std --dependent-lib=libcmt --dependent-lib=oldnames -fcuda-include-gpubinary "C:\\Users\\Jacob\\AppData\\Local\\Temp\\sph_arrangement.cu-c4f2fb.hipfb" -cuid=88573ab2cf26be51 -fcuda-allow-variadic-functions -faddrsig -o "Debug\\HIP_clang\\sph_arrangement.cu.hip.obj" -x hip sph_arrangement.cu.hip
+  clang -cc1 version 17.0.0 based upon LLVM 17.0.0git default target x86_64-pc-windows-msvc
+  ignoring nonexistent directory "D:\projects\master_thesis\programs\HIPIFIED-FSPHF\sph_fastest\Hybrid_Fluid_Simulation\..\..\..\Common"
+  ignoring nonexistent directory "Include\um"
+  ignoring nonexistent directory "Include\um"
+  ignoring duplicate directory "C:\Program Files\AMD\ROCm\5.5\include"
+    as it is a non-system directory that duplicates a system directory
+  ignoring duplicate directory "C:\Program Files\AMD\ROCm\5.5\include"
+  ignoring duplicate directory "C:\Program Files\AMD\ROCm\5.5\lib\clang\17.0.0\include"
+  ignoring duplicate directory "D:\projects\master_thesis\programs\HIPIFIED-FSPHF\sph_fastest\\Hybrid_Fluid_Simulation\GL_LIB\glew_64\include"
+  ignoring duplicate directory "D:\projects\master_thesis\programs\HIPIFIED-FSPHF\sph_fastest\\Hybrid_Fluid_Simulation\GL_LIB\freeglut_64\include"
+  ignoring duplicate directory "D:\projects\master_thesis\programs\HIPIFIED-FSPHF\sph_fastest\\Hybrid_Fluid_Simulation\json\include"
+  ignoring duplicate directory "C:\Program Files\AMD\ROCm\5.5\include"
+  ignoring duplicate directory "C:\Program Files\AMD\ROCm\5.5\include"
+  ignoring duplicate directory "E:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.37.32822\include"
+  ignoring duplicate directory "E:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.37.32822\atlmfc\include"
+  ignoring duplicate directory "E:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\VS\include"
+  ignoring duplicate directory "C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\ucrt"
+  ignoring duplicate directory "E:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\VS\UnitTest\include"
+  ignoring duplicate directory "C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um"
+  ignoring duplicate directory "C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared"
+  ignoring duplicate directory "C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\winrt"
+  ignoring duplicate directory "C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\cppwinrt"
+  ignoring duplicate directory "C:\Program Files\AMD\ROCm\5.5\include"
+  #include "..." search starts here:
+  #include <...> search starts here:
+   D:\projects\master_thesis\programs\Fastest-SPH-framework\sph_fastest\Hybrid_Fluid_Simulation\json\include
+   C:\Program Files\AMD\ROCm\5.5\lib\clang\17.0.0\include\cuda_wrappers
+   C:\Program Files\AMD\ROCm\5.5\lib\clang\17.0.0\include
+   D:\projects\master_thesis\programs\HIPIFIED-FSPHF\sph_fastest\\Hybrid_Fluid_Simulation\GL_LIB\glew_64\include
+   D:\projects\master_thesis\programs\HIPIFIED-FSPHF\sph_fastest\\Hybrid_Fluid_Simulation\GL_LIB\freeglut_64\include
+   D:\projects\master_thesis\programs\HIPIFIED-FSPHF\sph_fastest\\Hybrid_Fluid_Simulation\json\include
+   C:\Program Files\AMD\ROCm\5.5\include
+   E:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.37.32822\include
+   E:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.37.32822\atlmfc\include
+   E:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\VS\include
+   C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\ucrt
+   E:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\VS\UnitTest\include
+   C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um
+   C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared
+   C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\winrt
+   C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\cppwinrt
+  End of search list.
+  In file included from sph_arrangement.cu.hip:12:
+  In file included from C:\Program Files\AMD\ROCm\5.5\include\thrust/scan.h:1656:
+  In file included from C:\Program Files\AMD\ROCm\5.5\include\thrust/detail/scan.inl:25:
+  In file included from C:\Program Files\AMD\ROCm\5.5\include\thrust/system/detail/adl/scan.h:44:
+  In file included from C:\Program Files\AMD\ROCm\5.5\include\thrust/system/hip/detail/scan.h:48:
+  In file included from C:\Program Files\AMD\ROCm\5.5\include\rocprim/rocprim.hpp:34:
+C:\Program Files\AMD\ROCm\5.5\include\rocprim/functional.hpp(44,2): warning : "GPU printf warnings for invalid rocPRIM warp operations on Navi GPUs temporarily disabled, due to performance issues with printf." 	 [-W#warnings]
+sph_arrangement.cu.hip(807,150): warning : unused parameter 'grid_size' [-Wunused-parameter]
+sph_arrangement.cu.hip(810,10): warning : comparison of integers of different signs: 'unsigned int' and 'int' [-Wsign-compare]
+sph_arrangement.cu.hip(853,10): warning : comparison of integers of different signs: 'unsigned int' and 'int' [-Wsign-compare]
+sph_arrangement.cu.hip(862,10): warning : comparison of integers of different signs: 'unsigned int' and 'int' [-Wsign-compare]
+sph_arrangement.cu.hip(884,26): warning : comparison of integers of different signs: 'unsigned int' and 'int' [-Wsign-compare]
+sph_arrangement.cu.hip(902,11): warning : comparison of integers of different signs: 'unsigned int' and 'int' [-Wsign-compare]
+sph_arrangement.cu.hip(1153,2): warning : ignoring return value of function declared with 'nodiscard' attribute [-Wunused-result]
+sph_arrangement.cu.hip(1151,6): warning : unused variable 'num_blockc' [-Wunused-variable]
+sph_arrangement.cu.hip(1246,2): warning : ignoring return value of function declared with 'nodiscard' attribute [-Wunused-result]
+sph_arrangement.cu.hip(1277,24): warning : comparison of integers of different signs: 'int' and 'unsigned int' [-Wsign-compare]
+  "E:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.37.32822\bin\HostX64\x64\link.exe"
+  Microsoft (R) Incremental Linker Version 14.37.32826.1
+  Copyright (C) Microsoft Corporation.  All rights reserved.
+  "/OUT:D:\projects\master_thesis\programs\HIPIFIED-FSPHF\sph_fastest\Debug\HIP_clang\Hybrid_Fluid_Simulation.exe" /INCREMENTAL "/ILK:Debug\HIP_clang\Hybrid_Fluid_Simulation.ilk" "/LIBPATH:C:\Program Files\AMD\ROCm\5.5\lib" libcmt.lib amdhip64.lib freeglut.lib glew32.lib lib_json.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST "/MANIFESTUAC:level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG:FASTLINK "/PDB:D:\projects\master_thesis\programs\HIPIFIED-FSPHF\sph_fastest\Debug\HIP_clang\Hybrid_Fluid_Simulation.pdb" /SUBSYSTEM:CONSOLE /OPT:NOREF /OPT:NOICF /TLBID:1 /DYNAMICBASE /NXCOMPAT "/IMPLIB:D:\projects\master_thesis\programs\HIPIFIED-FSPHF\sph_fastest\Debug\HIP_clang\Hybrid_Fluid_Simulation.lib" /MACHINE:X64 /SAFESEH:NO Debug\HIP_clang\gl_main.cpp.hip.obj 
+  Debug\HIP_clang\gpu_model_reader.cpp.hip.obj 
+  Debug\HIP_clang\lodepng.cpp.obj 
+  Debug\HIP_clang\parameters.cpp.hip.obj 
+  Debug\HIP_clang\pcisph_factor.cpp.hip.obj 
+  Debug\HIP_clang\sph_marching_cube.cpp.hip.obj 
+  Debug\HIP_clang\sph_particle.cpp.hip.obj 
+  Debug\HIP_clang\sph_timer.cpp.hip.obj 
+  Debug\HIP_clang\prefix_sum.cu.hip.obj 
+  Debug\HIP_clang\scan.cu.hip.obj 
+  Debug\HIP_clang\gpu_model.cu.hip.obj 
+  Debug\HIP_clang\sph_arrangement.cu.hip.obj 
+  Debug\HIP_clang\sph_hybrid_system.cpp.hip.obj 
+  Debug\HIP_clang\sph_kernel.cu.hip.obj 
+  Hybrid_Fluid_Simulation.vcxproj -> D:\projects\master_thesis\programs\HIPIFIED-FSPHF\sph_fastest\Debug\HIP_clang\Hybrid_Fluid_Simulation.exe

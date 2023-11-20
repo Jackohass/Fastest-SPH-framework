@@ -1,3 +1,4 @@
+#define _ITERATOR_DEBUG_LEVEL 0
 #include <GL\glew.h>
 #include <GL\freeglut.h>
 #include <sstream>
@@ -37,28 +38,31 @@ bool init_cuda(void)
         fprintf(stderr, "There is no device.\n");
         return false;
     }
+    printf("\nNumber devices: %d\n", count);
 
     for (i = 0; i < count; i++)
     {
+        printf("Device: %d\n", i);
         hipDeviceProp_t prop;
         if (hipGetDeviceProperties(&prop, i) == hipSuccess)
         {
-            if (prop.major >= 1)
-            {
-                break;
-            }
+            printf("\tName: %s\n", prop.name);
+            printf("\tWarp size: %d\n", prop.warpSize);
+            printf("\tCan do shared Int64 atomics: %d\n", prop.arch.hasSharedInt64Atomics);
+            printf("\tCan do global Int64 atomics: %d\n", prop.arch.hasGlobalInt64Atomics);
         }
     }
 
-    if (i == count)
+    /*if (i == count)
     {
         fprintf(stderr, "There is no device supporting CUDA.\n");
         return false;
-    }
+    }*/
 
-    hipSetDevice(i);
+    hipSetDevice(0);
 
     printf("CUDA initialized.\n");
+    printf("Size of float3: %d\n", sizeof(float3));
     return true;
 }
 
@@ -368,6 +372,8 @@ void keyboard_func(unsigned char key, int x, int y)
 {
     if (key == 't')
     {
+        printf("-------Running a tick--------\n");
+        sph_system->runTick = true;
         sph_system->tick();
 
         //for (size_t i = 0; i < 4; ++i)
@@ -376,7 +382,7 @@ void keyboard_func(unsigned char key, int x, int y)
         //    printf("(%f, %f, %f) \n", pos.x, pos.y, pos.z);
         //}
         //printf("\n");
-        printf("--------\n");
+        printf("--------Tick done--------\n");
     }
 
     if (key == ' ')

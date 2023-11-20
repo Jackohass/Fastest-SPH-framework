@@ -19,10 +19,12 @@ inline void cuda_safe_call_(hipError_t err, const char *file_name, const int num
 {
     if (hipSuccess != err)
     {
-        exit(0);
-        std::cerr << file_name << "[" << num_line << "]: "
+        /*std::cerr << file_name << "[" << num_line << "]: "
             << "CUDA Running API error[" << (int)err << "]: "
-            << hipGetErrorString(err) << std::endl;
+            << hipGetErrorString(err) << std::endl;*/
+        std::cerr << "An error encountered: \"" << hipGetErrorString(err) << "\" at " \
+        << *file_name << ':' << num_line << std::endl;
+        exit(0);
     }
 }
 
@@ -31,11 +33,11 @@ inline void cuda_kernel_check_(const char *error_msg, const char *file_name, con
     hipError_t err = hipDeviceSynchronize();
     if (hipSuccess != err)
     {
-        exit(0);
         std::cerr << file_name << "[" << num_line << "]: "
             << (error_msg == nullptr ? "NONE" : error_msg)
             << "[" << (int)err << "]: "
             << hipGetErrorString(err) << std::endl;
+        exit(0);
     }
 }
 
