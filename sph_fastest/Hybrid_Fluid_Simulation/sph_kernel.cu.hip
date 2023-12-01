@@ -140,6 +140,27 @@ inline void knComputeCellForceSMS64(const int& isSame, float3 *pres_kn, float3 *
             (dis_2 - 3 / 4 * (kDevSysPara.kernel_2 - dis_2));
     }
 }
+
+__device__
+inline void knComputeCellNeigbourSMS64(const int& isSame, SimForSharedData128* sdata, CFData* self_data, int read_num)
+{
+    int kk = (1 - isSame) * (threadIdx.x >> 5);
+
+    for (size_t i = (kk << 5); i < (kk << 5) + read_num; ++i)
+    {
+
+        float4 neighbor_position = sdata->getPosition(i);
+        float3 rel_pos = cal_rePos(neighbor_position, self_data->pos);
+
+        float dis_2 = rel_pos.x * rel_pos.x + rel_pos.y * rel_pos.y + rel_pos.z * rel_pos.z;
+
+        if (kDevSysPara.kernel_2 < dis_2 || kFloatSmall > dis_2)
+            continue;
+
+        //ADD NEIGHBOUR HERE
+    }
+}
+
 //__device__
 //inline void knComputeCellForceSMS(float3 *pres_kn, float3 *vis_kn, SimForSharedData *sdata, CFData *self_data, int read_num)
 //{
@@ -1401,6 +1422,25 @@ void knComputeCellForceTRA9(float3 *pres_kn, float3 *vis_kn, ParticleBufferList 
 
     // return total_force;
 }
+
+void knComputeCellNeighbourTRA9(ParticleBufferList& buff_list, CFData* self_data, int cell_offset, int cell_num)
+{
+    if (0 == cell_num) return;
+    int end_idx = cell_offset + cell_num;
+    for (size_t i = cell_offset; i < end_idx; ++i)
+    {
+        float4 neighbor_pos = buff_list.position_d[i];
+        float4 neighbor_ev = buff_list.evaluated_velocity[i];
+
+        float3 rel_pos = cal_rePos(neighbor_pos, self_data->pos);
+        float dis_2 = rel_pos.x * rel_pos.x + rel_pos.y * rel_pos.y + rel_pos.z * rel_pos.z;
+
+        if (dis_2 < kFloatSmall || dis_2 > kDevSysPara.kernel_2) continue;
+
+        //ADD NEIGHBOUR HERE
+    }
+}
+
 //__device__
 //void knComputeCellGradDataTRA(ParticleBufferList &buff_list, GrediData *self_data, int *cell_offset, int *cell_num, ushort3 cell_pos)
 //{
@@ -2014,6 +2054,110 @@ void kncomputeForceHybrid128n(int *cell_offset_M,ParticleIdxRange range, Particl
     }
 }
 
+__global__ 
+void kncomputeNeighbours(int* cell_offset_M, ParticleIdxRange range, ParticleBufferList buff_list, int* cindex, int* cell_offset, int* cell_num, BlockTask* block_task, int bt_offset)
+{
+    if (blockIdx.x < bt_offset) {
+        int self_idx = threadIdx.x + __umul24(blockIdx.x, blockDim.x) + range.begin;
+        if (self_idx >= range.end) return;
+        self_idx = cindex[self_idx];
+
+        CFData self_data;
+        self_data.pos = buff_list.position_d[self_idx];
+
+        ushort3 cell_posc = ParticlePos2CellPosM(self_data.pos, kDevSysPara.cell_size);
+
+        ushort3 cell_pos = calCI(cell_posc);
+        int xxx = (cell_posc.x) & 0x03;
+
+        ushort3 grid_size = kDevSysPara.grid_size;
+        int cell_offset_;
+        int cell_nump_;
+
+        for (int i = 0; i < 9; i++) {
+            ushort3 neighbor_pos = cell_pos + make_ushort3(-1, i % 3 - 1, i / 3 % 3 - 1);
+            if (neighbor_pos.y < 0 || neighbor_pos.y >= grid_size.y ||
+                neighbor_pos.z < 0 || neighbor_pos.z >= grid_size.z) {
+                continue;
+            }
+            else {
+                int nid_left, nid_mid, nid_right;
+                nid_left = CellPos2CellIdx(neighbor_pos, grid_size);
+                ++neighbor_pos.x;
+                nid_mid = CellPos2CellIdx(neighbor_pos, grid_size);
+                ++neighbor_pos.x;
+                nid_right = CellPos2CellIdx(neighbor_pos, grid_size);
+
+                cell_offset_ = kInvalidCellIdx == nid_left ? cell_offset[nid_mid] : cell_offset_M[(nid_left << 6) + (xxx << 4)];
+                cell_nump_ = cell_num[nid_mid];
+                if (kInvalidCellIdx != nid_left) cell_nump_ += cell_offset[nid_mid] - cell_offset_M[(nid_left << 6) + (xxx << 4)];//cell_nump[nid_left];
+                if (xxx == 3) {
+                    if (kInvalidCellIdx != nid_right) cell_nump_ += cell_num[nid_right];
+                }
+                else {
+                    if (kInvalidCellIdx != nid_right) cell_nump_ += cell_offset_M[(nid_right << 6) + ((xxx + 1) << 4)] - cell_offset_M[(nid_right << 6)];//cell_nump[nid_right];
+                }
+
+                knComputeCellNeighbourTRA9(buff_list, &self_data, cell_offset_, cell_nump_);
+            }
+        }
+
+    }
+    else {
+
+        int t = blockIdx.x - bt_offset;
+        int n = (t << 1) + (threadIdx.x >> 5);
+        BlockTask bt = block_task[n];
+        int isSame = bt.isSame;
+
+        int cell_id = bt.cellid;// CellPos2CellIdx(bt.cell_pos, kDevSysPara.grid_size);
+        ushort3 cellpos = CellIdx2CellPos(cell_id, kDevSysPara.grid_size);
+
+        int self_idx = cell_offset[cell_id] + bt.p_offset + threadIdx.x % 32; //__mul24(bt.sub_idx, blockDim.x) + threadIdx.x;
+
+        int temp_cell_end = cell_offset[cell_id] + cell_num[cell_id];
+
+        CFData self_data;
+
+        if (self_idx < temp_cell_end)   // init self data
+        {
+            self_data.pos = buff_list.position_d[self_idx];
+        }
+
+        __shared__ SimForSharedData128 sdata;
+        sdata.initialize(bt.zzi, bt.zzz, bt.xxi, bt.xxx, cell_offset_M, isSame, cell_offset, cell_num, cellpos, kDevSysPara.grid_size);
+        while (true)
+        {
+            __syncthreads();
+            int r = sdata.read32Data(cell_offset_M, isSame, buff_list);
+            __syncthreads();
+            if (0 == r) break;  // neighbor cells read complete
+
+            if (self_idx < temp_cell_end)
+            {
+                knComputeCellNeighbourSMS64(isSame, &sdata, &self_data, r);
+            }
+        }
+    }
+}
+
+void computeNeighbours(int* cell_offset_M, ParticleIdxRange range, ParticleBufferList buff_list_n, int* cindex, int* cell_offset, int* cell_num, BlockTask* block_task, int num_block) 
+{
+    int total_thread = range.end - range.begin;
+    int num_thread = 64;
+    int bt_offset = 0;
+    int number_blocks = ceil_int(num_block, 2);
+    if (total_thread > 0) {
+        bt_offset = ceil_int(total_thread, 64);
+        number_blocks += bt_offset;
+    }
+    if (number_blocks <= 0) return;
+
+    size_t offset = 0;
+
+    kncomputeNeighbours << <number_blocks, num_thread >> > (cell_offset_M, range, buff_list_n, cindex, cell_offset, cell_num, block_task, bt_offset);
+}
+
 void computeDensityHybrid128n(int *cell_offset_M, ParticleIdxRange range, ParticleBufferList buff_list_n, int* cindex, int *cell_offset, int *cell_num, BlockTask *block_task, int num_block){
 
     int total_thread = range.end - range.begin;
@@ -2049,7 +2193,7 @@ void computeForceHybrid128n(int *cell_offset_M, ParticleIdxRange range, Particle
 
     //FIX CUDA_SAFE_CALL(HBT(&offset, TRF, buff_list_n.position_d));
     //FIX CUDA_SAFE_CALL(HBT(&offset, TRFE, buff_list_n.evaluated_velocity));
-	kncomputeForceHybrid128n <<<number_blocks, num_thread >>>(cell_offset_M,range, buff_list_n, cindex, cell_offset, cell_num, block_task, bt_offset);
+	kncomputeForceHybrid128n <<<number_blocks, num_thread >>>(cell_offset_M, range, buff_list_n, cindex, cell_offset, cell_num, block_task, bt_offset);
 }
 
 //void computeOtherForceHybrid128n(ParticleIdxRange range, ParticleBufferList buff_list_n, int* cindex, int *cell_offset, int *cell_num, BlockTask *block_task, int num_block){

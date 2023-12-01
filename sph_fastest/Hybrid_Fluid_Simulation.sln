@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.30501.0
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34302.85
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Hybrid_Fluid_Simulation", "Hybrid_Fluid_Simulation\Hybrid_Fluid_Simulation.vcxproj", "{BC50E9FA-E95F-4E72-9F2B-D45567958A71}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Demo", "Demo\Demo.vcxproj", "{E3BD42E9-E85F-4881-8840-8D2681279827}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,8 +23,19 @@ Global
 		{BC50E9FA-E95F-4E72-9F2B-D45567958A71}.Release|Win32.Build.0 = Release|Win32
 		{BC50E9FA-E95F-4E72-9F2B-D45567958A71}.Release|x64.ActiveCfg = Release|x64
 		{BC50E9FA-E95F-4E72-9F2B-D45567958A71}.Release|x64.Build.0 = Release|x64
+		{E3BD42E9-E85F-4881-8840-8D2681279827}.Debug|Win32.ActiveCfg = Debug|x64
+		{E3BD42E9-E85F-4881-8840-8D2681279827}.Debug|Win32.Build.0 = Debug|x64
+		{E3BD42E9-E85F-4881-8840-8D2681279827}.Debug|x64.ActiveCfg = Debug|x64
+		{E3BD42E9-E85F-4881-8840-8D2681279827}.Debug|x64.Build.0 = Debug|x64
+		{E3BD42E9-E85F-4881-8840-8D2681279827}.Release|Win32.ActiveCfg = Release|x64
+		{E3BD42E9-E85F-4881-8840-8D2681279827}.Release|Win32.Build.0 = Release|x64
+		{E3BD42E9-E85F-4881-8840-8D2681279827}.Release|x64.ActiveCfg = Release|x64
+		{E3BD42E9-E85F-4881-8840-8D2681279827}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4C0622D2-92E9-4404-8256-AABCC0180D84}
 	EndGlobalSection
 EndGlobal
