@@ -10,7 +10,6 @@
 #include "sph_kernel.cuh.hip"
 #include "sph_arrangement.cuh.hip"
 #include "sph_particle.h.hip"
-#include "sph_arrangement.cuh.hip"
 
 #undef max
 #undef min
@@ -20,12 +19,14 @@ std::vector<float3> positions;
 std::random_device rd;
 std::mt19937 g(rd());
 
-float3 make_float3(float, float, float);
-ushort3 make_ushort3(ushort, ushort, ushort);
-
 inline float3 operator-(const float3& left, const float3& right)
 {
-	return make_float3( left[0] - right[0], left[1] - right[1], left[2] - right[2] );
+	return make_float3( left.x - right.x, left.y - right.y, left.z - right.z );
+}
+
+inline float4 operator-(const float4& left, const float4& right)
+{
+	return make_float4(left.x - right.x, left.y - right.y, left.z - right.z, left.w - right.w);
 }
 
 std::size_t const N = 120;
@@ -36,9 +37,9 @@ float const radius = static_cast<float>(2.0) * (static_cast<float>(2.0) * r_omeg
 
 uint buff_capacity_ = N * N * N;
 uint nump_ = 0U;
-ParticleBufferObject host_buff_;
-ParticleBufferObject device_buff_;
-ParticleBufferObject device_buff_temp_;
+sph::ParticleBufferObject host_buff_;
+sph::ParticleBufferObject device_buff_;
+sph::ParticleBufferObject device_buff_temp_;
 
 void addParticle(float3 position)
 {
@@ -64,8 +65,8 @@ void addParticle(float3 position)
 
 void testFSPHF()
 {
-	device_buff_.allocate(buff_capacity_, kBuffTypeDevice);
-	host_buff_.allocate(buff_capacity_, kBuffTypeHostPinned);
+	device_buff_.allocate(buff_capacity_, sph::kBuffTypeDevice);
+	host_buff_.allocate(buff_capacity_, sph::kBuffTypeHostPinned);
 	device_buff_temp_.allocateSubBuffer(&device_buff_);
 
 	//Generate test data
@@ -84,20 +85,20 @@ void testFSPHF()
 					r_omega * static_cast<float>(2.0 * static_cast<double>(k) / static_cast<double>(N - 1) - 1.0)
 				);
 
-				float l2 = x[0] * x[0] + x[1] * x[1] + x[2] * x[2];
+				float l2 = x.x * x.x + x.y * x.y + x.z * x.z;
 				if (l2 < r_omega2)
 				{
-					x[0] += static_cast<float>(0.35);
-					x[1] += static_cast<float>(0.35);
-					x[2] += static_cast<float>(0.35);
+					x.x += static_cast<float>(0.35);
+					x.y += static_cast<float>(0.35);
+					x.y += static_cast<float>(0.35);
 					positions.push_back(x);
-					if (min_x > x[0])
+					if (min_x > x.x)
 					{
-						min_x = x[0];
-					}
-					if (max_x < x[0])
-					{
-						max_x = x[0];
+						min_x = x.x;
+					}			 
+					if (max_x < x.x)
+					{			 
+						max_x = x.x;
 					}
 				}
 			}
@@ -116,6 +117,7 @@ void testFSPHF()
 	std::cout << "Number of particles: " << nump_ << std::endl;
 
 	host_buff_.transfer(device_buff_, 0, nump_, hipMemcpyHostToDevice);
+	printf("Host buffer transfer success\n");
 	float cell_size = 0.03f / 80;
 	ushort3 grid_size = make_ushort3(
 		(ushort)ceil(1.0f / cell_size),
@@ -123,7 +125,8 @@ void testFSPHF()
 		(ushort)ceil(1.0f / cell_size)
 	);
 	
-	arrangement_ = new Arrangement(device_buff_, device_buff_temp_, nump_, buff_capacity_, cell_size, grid_size);
+	sph::Arrangement* arrangement_ = new sph::Arrangement(device_buff_, device_buff_temp_, nump_, buff_capacity_, cell_size, grid_size);
+	printf("Arrangement success\n");
 
 	int* d_index = arrangement_->getDevCellIndex();
 	int* offset_data = arrangement_->getDevOffsetData();
@@ -133,25 +136,28 @@ void testFSPHF()
 	int middle = nump_;
 
 	middle = arrangement_->arrangeHybridMode9M();
+	printf("Arranged HybridMode success\n");
 
-	ParticleIdxRange tra_range(0, middle);      // [0, middle)
+	sph::ParticleIdxRange tra_range(0, middle);      // [0, middle)
+	printf("Gotten middle\n");
 
-	computeDensityHybrid128n(cell_offsetM, tra_range, device_buff_.get_buff_list(), d_index, cell_offset, cell_nump, arrangement_->getBlockTasks(), arrangement_->getNumBlockSMSMode());
+	Neighbours neigh(nump_);
+	printf("Created Neighbours\n");
+
+	sph::computeNeighbours(cell_offsetM, tra_range, device_buff_.get_buff_list(), d_index, cell_offset, cell_nump, arrangement_->getBlockTasks(), arrangement_->getNumBlockSMSMode(), neigh);
+	printf("Computed neighbours\n");
 
 	//Neighborhood search result test
-	auto& pointSet = nsearch.point_set(0);
-	auto points = pointSet.GetPoints();
 
 	std::cout << "Validate results" << std::endl;
-	for (unsigned int i = 0; i < pointSet.n_points(); i++)
+	for (unsigned int i = 0; i < nump_; i++)
 	{
-		float3 point = ((float3*)points)[i];
-		auto count = pointSet.n_neighbors(0, i);
-		for (unsigned int j = 0; j < count; j++)
+		float4 point = host_buff_.get_buff_list().position_d[i];
+		for (unsigned int j = 0; j < neigh.counts[i]; j++)
 		{
-			auto neighbor = pointSet.neighbor(0, i, j);
-			auto diff = point - ((float3*)points)[neighbor];
-			float squaredLength = diff[0] * diff[0] + diff[1] * diff[1] + diff[2] * diff[2];
+			int neighbor = neigh.neighbors[neigh.offsets[i] + j];
+			float4 diff = point - host_buff_.get_buff_list().position_d[neighbor];
+			float squaredLength = diff.x * diff.x + diff.y * diff.y + diff.z * diff.z;
 			float distance = sqrt(squaredLength);
 
 			if (distance > radius)
@@ -173,7 +179,7 @@ int main(int argc, char* argv[])
 		std::cout << "Real = double" << std::endl;
 #endif
 
-	testCuNSearch();
+	testFSPHF();
 	std::cout << "Finished Testing" << std::endl;
 	getchar();
 }

@@ -18,5 +18,41 @@
     <ClCompile Include="..\Hybrid_Fluid_Simulation\Demo.hip">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\Hybrid_Fluid_Simulation\sph_arrangement.cu.hip">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Hybrid_Fluid_Simulation\sph_kernel.cu.hip">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Hybrid_Fluid_Simulation\sph_particle.cpp.hip">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Hybrid_Fluid_Simulation\sph_arrangement.cuh.hip">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Hybrid_Fluid_Simulation\sph_kernel.cuh.hip">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Hybrid_Fluid_Simulation\sph_particle.h.hip">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Hybrid_Fluid_Simulation\cuda_prescan\scan.cuh.hip">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Hybrid_Fluid_Simulation\cuda_prescan\scan.cu.hip">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Hybrid_Fluid_Simulation\gpu_model.h.hip">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Hybrid_Fluid_Simulation\gpu_model.cu.hip">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Hybrid_Fluid_Simulation\gpu_model_reader.h.hip">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Hybrid_Fluid_Simulation\gpu_model_reader.cpp.hip">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

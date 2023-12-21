@@ -142,13 +142,12 @@ inline void knComputeCellForceSMS64(const int& isSame, float3 *pres_kn, float3 *
 }
 
 __device__
-inline void knComputeCellNeigbourCountSMS64(const int& isSame, SimForSharedData128* sdata, CFData* self_data, int read_num)
+inline void knComputeCellNeighbourCountSMS64(int& count, const int& isSame, SimForSharedData128* sdata, CFData* self_data, int read_num)
 {
     int kk = (1 - isSame) * (threadIdx.x >> 5);
 
     for (size_t i = (kk << 5); i < (kk << 5) + read_num; ++i)
     {
-
         float4 neighbor_position = sdata->getPosition(i);
         float3 rel_pos = cal_rePos(neighbor_position, self_data->pos);
 
@@ -157,12 +156,12 @@ inline void knComputeCellNeigbourCountSMS64(const int& isSame, SimForSharedData1
         if (kDevSysPara.kernel_2 < dis_2 || kFloatSmall > dis_2)
             continue;
 
-        //COUNT NEIGHBOUR HERE
+        count++;
     }
 }
 
 __device__
-inline void knComputeCellNeigbourSMS64(const int& isSame, SimForSharedData128* sdata, CFData* self_data, int read_num)
+inline void knComputeCellNeighbourSMS64(int& count, const int& isSame, SimForSharedData128* sdata, CFData* self_data, int read_num, int* neighbors, int writeOffset)
 {
     int kk = (1 - isSame) * (threadIdx.x >> 5);
 
@@ -177,7 +176,8 @@ inline void knComputeCellNeigbourSMS64(const int& isSame, SimForSharedData128* s
         if (kDevSysPara.kernel_2 < dis_2 || kFloatSmall > dis_2)
             continue;
 
-        //ADD NEIGHBOUR HERE
+        neighbors[writeOffset + count] = i;
+        count++;
     }
 }
 
@@ -1444,7 +1444,7 @@ void knComputeCellForceTRA9(float3 *pres_kn, float3 *vis_kn, ParticleBufferList 
 }
 
 __device__
-void knComputeCellNeighbourCountTRA9(ParticleBufferList& buff_list, CFData* self_data, int cell_offset, int cell_num)
+void knComputeCellNeighbourCountTRA9(int& count, ParticleBufferList& buff_list, CFData* self_data, int cell_offset, int cell_num, int* neighborCounts)
 {
     if (0 == cell_num) return;
     int end_idx = cell_offset + cell_num;
@@ -1458,12 +1458,12 @@ void knComputeCellNeighbourCountTRA9(ParticleBufferList& buff_list, CFData* self
 
         if (dis_2 < kFloatSmall || dis_2 > kDevSysPara.kernel_2) continue;
 
-        //COUNT NEIGHBOUR HERE
+        count++;
     }
 }
 
 __device__
-void knComputeCellNeighbourTRA9(ParticleBufferList& buff_list, CFData* self_data, int cell_offset, int cell_num)
+void knComputeCellNeighbourTRA9(int& count, int self_idx, ParticleBufferList& buff_list, CFData* self_data, int cell_offset, int cell_num, int* neighbors, int writeOffset)
 {
     if (0 == cell_num) return;
     int end_idx = cell_offset + cell_num;
@@ -1477,7 +1477,8 @@ void knComputeCellNeighbourTRA9(ParticleBufferList& buff_list, CFData* self_data
 
         if (dis_2 < kFloatSmall || dis_2 > kDevSysPara.kernel_2) continue;
 
-        //ADD NEIGHBOUR HERE
+        neighbors[writeOffset + count] = i;
+        count++;
     }
 }
 
@@ -2095,12 +2096,14 @@ void kncomputeForceHybrid128n(int *cell_offset_M,ParticleIdxRange range, Particl
 }
 
 __global__
-void kncomputeNeighboursCount(int* cell_offset_M, ParticleIdxRange range, ParticleBufferList buff_list, int* cindex, int* cell_offset, int* cell_num, BlockTask* block_task, int bt_offset)
+void kncomputeNeighboursCount(int* cell_offset_M, ParticleIdxRange range, ParticleBufferList buff_list, int* cindex, int* cell_offset, int* cell_num, BlockTask* block_task, int bt_offset, int* neighborCounts)
 {
     if (blockIdx.x < bt_offset) {
         int self_idx = threadIdx.x + __umul24(blockIdx.x, blockDim.x) + range.begin;
         if (self_idx >= range.end) return;
         self_idx = cindex[self_idx];
+
+        int count = 0;
 
         CFData self_data;
         self_data.pos = buff_list.position_d[self_idx];
@@ -2138,13 +2141,12 @@ void kncomputeNeighboursCount(int* cell_offset_M, ParticleIdxRange range, Partic
                     if (kInvalidCellIdx != nid_right) cell_nump_ += cell_offset_M[(nid_right << 6) + ((xxx + 1) << 4)] - cell_offset_M[(nid_right << 6)];//cell_nump[nid_right];
                 }
 
-                knComputeCellNeighbourCountTRA9(buff_list, &self_data, cell_offset_, cell_nump_);
+                knComputeCellNeighbourCountTRA9(count, buff_list, &self_data, cell_offset_, cell_nump_, neighborCounts);
             }
         }
-
+        neighborCounts[self_idx] = count;
     }
     else {
-
         int t = blockIdx.x - bt_offset;
         int n = (t << 1) + (threadIdx.x >> 5);
         BlockTask bt = block_task[n];
@@ -2164,6 +2166,8 @@ void kncomputeNeighboursCount(int* cell_offset_M, ParticleIdxRange range, Partic
             self_data.pos = buff_list.position_d[self_idx];
         }
 
+        int count = 0;
+
         __shared__ SimForSharedData128 sdata;
         sdata.initialize(bt.zzi, bt.zzz, bt.xxi, bt.xxx, cell_offset_M, isSame, cell_offset, cell_num, cellpos, kDevSysPara.grid_size);
         while (true)
@@ -2175,19 +2179,23 @@ void kncomputeNeighboursCount(int* cell_offset_M, ParticleIdxRange range, Partic
 
             if (self_idx < temp_cell_end)
             {
-                knComputeCellNeighbourCountSMS64(isSame, &sdata, &self_data, r);
+                knComputeCellNeighbourCountSMS64(count, isSame, &sdata, &self_data, r);
             }
         }
+        neighborCounts[self_idx] = count;
     }
 }
 
 __global__ 
-void kncomputeNeighbours(int* cell_offset_M, ParticleIdxRange range, ParticleBufferList buff_list, int* cindex, int* cell_offset, int* cell_num, BlockTask* block_task, int bt_offset)
+void kncomputeNeighbours(int* cell_offset_M, ParticleIdxRange range, ParticleBufferList buff_list, int* cindex, int* cell_offset, int* cell_num, BlockTask* block_task, int bt_offset, int* neighbours, int* neighboursOffset)
 {
     if (blockIdx.x < bt_offset) {
         int self_idx = threadIdx.x + __umul24(blockIdx.x, blockDim.x) + range.begin;
         if (self_idx >= range.end) return;
         self_idx = cindex[self_idx];
+
+        int count = 0;
+        const int writeOffset = neighboursOffset[self_idx];
 
         CFData self_data;
         self_data.pos = buff_list.position_d[self_idx];
@@ -2225,13 +2233,12 @@ void kncomputeNeighbours(int* cell_offset_M, ParticleIdxRange range, ParticleBuf
                     if (kInvalidCellIdx != nid_right) cell_nump_ += cell_offset_M[(nid_right << 6) + ((xxx + 1) << 4)] - cell_offset_M[(nid_right << 6)];//cell_nump[nid_right];
                 }
 
-                knComputeCellNeighbourTRA9(buff_list, &self_data, cell_offset_, cell_nump_);
+                knComputeCellNeighbourTRA9(count, self_idx, buff_list, &self_data, cell_offset_, cell_nump_, neighbours, writeOffset);
             }
         }
 
     }
     else {
-
         int t = blockIdx.x - bt_offset;
         int n = (t << 1) + (threadIdx.x >> 5);
         BlockTask bt = block_task[n];
@@ -2245,10 +2252,13 @@ void kncomputeNeighbours(int* cell_offset_M, ParticleIdxRange range, ParticleBuf
         int temp_cell_end = cell_offset[cell_id] + cell_num[cell_id];
 
         CFData self_data;
+        int count = 0;
+        int writeOffset = 0;
 
         if (self_idx < temp_cell_end)   // init self data
         {
             self_data.pos = buff_list.position_d[self_idx];
+            writeOffset = neighboursOffset[self_idx];
         }
 
         __shared__ SimForSharedData128 sdata;
@@ -2262,13 +2272,13 @@ void kncomputeNeighbours(int* cell_offset_M, ParticleIdxRange range, ParticleBuf
 
             if (self_idx < temp_cell_end)
             {
-                knComputeCellNeighbourSMS64(isSame, &sdata, &self_data, r);
+                knComputeCellNeighbourSMS64(count, isSame, &sdata, &self_data, r, neighbours, writeOffset);
             }
         }
     }
 }
 
-void computeNeighbours(int* cell_offset_M, ParticleIdxRange range, ParticleBufferList buff_list_n, int* cindex, int* cell_offset, int* cell_num, BlockTask* block_task, int num_block) 
+void computeNeighbours(int* cell_offset_M, ParticleIdxRange range, ParticleBufferList buff_list_n, int* cindex, int* cell_offset, int* cell_num, BlockTask* block_task, int num_block, Neighbours& neigh) 
 {
     int total_thread = range.end - range.begin;
     int num_thread = 64;
@@ -2280,18 +2290,77 @@ void computeNeighbours(int* cell_offset_M, ParticleIdxRange range, ParticleBuffe
     }
     if (number_blocks <= 0) return;
 
-    size_t offset = 0;
+    hipError_t hipStatus;
 
-    //Make device array for neighbour counts for each particle
-    //Make device array for neighbour counts celloffse for each particle
+    neigh.dNeighborCounts.resize(neigh.particleCount);
 
-    kncomputeNeighbours << <number_blocks, num_thread >> > (cell_offset_M, range, buff_list_n, cindex, cell_offset, cell_num, block_task, bt_offset);
+    kncomputeNeighboursCount <<<number_blocks, num_thread >>> (cell_offset_M, range, buff_list_n, cindex, cell_offset, cell_num, block_task, bt_offset, thrust::raw_pointer_cast(&neigh.dNeighborCounts[0]));
+
+    neigh.dNeighborOffsets.resize(neigh.particleCount);
+
+    hipStatus = hipDeviceSynchronize();
+    if (hipStatus != hipSuccess)
+    {
+        auto temp = hipGetErrorString(hipStatus);
+        printf("Error counting neighbours: %s", temp);
+    }
 
     //Exclusive scan over to figure out the new size of the neigbour counts
+    thrust::exclusive_scan(
+        neigh.dNeighborCounts.begin(),
+        neigh.dNeighborCounts.end(),
+        neigh.dNeighborOffsets.begin());
 
-    kncomputeNeighboursCount << <number_blocks, num_thread >> > (cell_offset_M, range, buff_list_n, cindex, cell_offset, cell_num, block_task, bt_offset);
+    hipStatus = hipDeviceSynchronize();
+    if (hipStatus != hipSuccess)
+    {
+        auto temp = hipGetErrorString(hipStatus);
+        printf("Error scanning neighbour totals: %s", temp);
+    }
 
+    //Compute total amount of neighbors
+    uint lastOffset = 0;
+    hipMemcpy(thrust::raw_pointer_cast(&neigh.dNeighborOffsets[0]) + neigh.particleCount - 1, &lastOffset, 1, hipMemcpyDeviceToHost);
+    uint lastParticleNeighborCount = 0;
+    hipMemcpy(thrust::raw_pointer_cast(&neigh.dNeighborCounts[0]) + neigh.particleCount - 1, &lastParticleNeighborCount, 1, hipMemcpyDeviceToHost);
+    uint totalNeighborCount = lastOffset + lastParticleNeighborCount;
+    neigh.dNeighbors.resize(totalNeighborCount);
+
+    hipStatus = hipDeviceSynchronize();
+    if (hipStatus != hipSuccess)
+    {
+        auto temp = hipGetErrorString(hipStatus);
+        printf("Error scanning neighbour totals: %s", temp);
+    }
+
+    kncomputeNeighbours <<<number_blocks, num_thread >>> (cell_offset_M, range, buff_list_n, cindex, cell_offset, cell_num, block_task, bt_offset, thrust::raw_pointer_cast(&neigh.dNeighbors[0]), thrust::raw_pointer_cast(&neigh.dNeighborOffsets[0]));
+
+    hipStatus = hipDeviceSynchronize();
+    if (hipStatus != hipSuccess)
+    {
+        auto temp = hipGetErrorString(hipStatus);
+        printf("Error scanning neighbour totals: %s", temp);
+    }
+    
     //Transfer device data to host
+    if (neigh.neighborsSize < totalNeighborCount)
+    {
+        hipHostFree(neigh.neighbors);
+        neigh.neighborsSize = static_cast<int>(totalNeighborCount * 1.5);
+        hipHostMalloc(&neigh.neighbors, sizeof(int) * neigh.neighborsSize);
+    }
+    if (neigh.countsSize < neigh.particleCount)
+    {
+        hipHostFree(neigh.offsets);
+        hipHostFree(neigh.counts);
+        neigh.countsSize = static_cast<int>(neigh.particleCount * 1.5);
+        hipHostMalloc(&neigh.offsets, sizeof(int) * neigh.countsSize);
+        hipHostMalloc(&neigh.counts, sizeof(int) * neigh.countsSize);
+    }
+
+    hipMemcpy(thrust::raw_pointer_cast(&neigh.dNeighbors[0]), neigh.neighbors, totalNeighborCount, hipMemcpyDeviceToHost);
+    hipMemcpy(thrust::raw_pointer_cast(&neigh.dNeighborCounts[0]), neigh.counts, neigh.particleCount, hipMemcpyDeviceToHost);
+    hipMemcpy(thrust::raw_pointer_cast(&neigh.dNeighborOffsets[0]), neigh.offsets, neigh.particleCount, hipMemcpyDeviceToHost);
 
     //Return host arrays neighbours per particle, number of neighbours per particle, offset for each particle
 }
@@ -2998,7 +3067,6 @@ void find_max_P(int blocks, int tds, sumGrad *id_value, int numbers)
 
 
 //pscisph over--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
 
 //sf finally namespace sph-------------------------------------------------
 }

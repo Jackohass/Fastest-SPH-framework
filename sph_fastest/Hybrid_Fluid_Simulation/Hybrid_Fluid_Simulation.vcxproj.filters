@@ -53,14 +53,14 @@
     </ClCompile>
     <ClCompile Include="gl_main.cpp.hip" />
     <ClCompile Include="parameters.cpp.hip" />
-    <ClCompile Include="gpu_model.cu.hip">
-      <Filter>GPU Model</Filter>
-    </ClCompile>
     <ClCompile Include="gpu_model_reader.cpp.hip">
       <Filter>GPU Model</Filter>
     </ClCompile>
     <ClCompile Include="sph_marching_cube.cpp.hip">
       <Filter>Marching Cubes</Filter>
+    </ClCompile>
+    <ClCompile Include="gpu_model.cu.hip">
+      <Filter>GPU Model</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

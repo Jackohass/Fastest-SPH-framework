@@ -12,6 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="gl_main.cpp.hip" />
+    <ClCompile Include="gpu_model.cu.hip" />
     <ClCompile Include="gpu_model_reader.cpp.hip" />
     <ClCompile Include="lodepng.cpp" />
     <ClCompile Include="parameters.cpp.hip" />
@@ -21,7 +22,6 @@
     <ClCompile Include="sph_timer.cpp.hip" />
     <ClCompile Include="cuda_prescan\prefix_sum.cu.hip" />
     <ClCompile Include="cuda_prescan\scan.cu.hip" />
-    <ClCompile Include="gpu_model.cu.hip" />
     <ClCompile Include="sph_arrangement.cu.hip" />
     <ClCompile Include="sph_hybrid_system.cpp.hip" />
     <ClCompile Include="sph_kernel.cu.hip" />

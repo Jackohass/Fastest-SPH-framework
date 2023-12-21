@@ -9,10 +9,70 @@
 #ifndef _SPH_KERNEL_CUH
 #define _SPH_KERNEL_CUH
 
+#undef max
+#undef min
+#define NOMINMAX
+
+#include <thrust/device_vector.h>
+#undef max
+#undef min
+#define NOMINMAX
 #include <hip/hip_runtime.h>
 #include "sph_parameter.h.hip"
 #include "sph_particle.h.hip"
 #include "pcisph_factor.h.hip"
+
+
+class Neighbours
+{
+private:
+
+public:
+
+	int* counts;
+	int* offsets;
+	int* neighbors;
+
+	int countsSize;
+	int neighborsSize;
+
+	//Device neighbor buffers (only temporary used: after the computation the data is copied to the host)
+	thrust::device_vector<int> dNeighbors;
+	thrust::device_vector<int> dNeighborCounts;
+	thrust::device_vector<int> dNeighborOffsets;
+
+	int particleCount;
+
+	/**
+	* Fetches id pair of bth neighbor of partcle .
+	* @param a Particle index for which the neighbor id should be returned.
+	* @param b Represents bth neighbor of point a.
+	* @returns Index of neighboring point a
+	*/
+	inline unsigned int neighbor(unsigned int a, unsigned int b) const
+	{
+		//Return index of the k-th neighbor to point i (of the given point set)
+		return neighbors[offsets[a] + b];
+	}
+
+	Neighbours(int numParticles)
+	{
+		countsSize = sizeof(int) * numParticles;
+		neighborsSize = sizeof(int) * numParticles * 27;
+		particleCount = numParticles;
+		hipHostMalloc(&counts, countsSize);
+		hipHostMalloc(&offsets, countsSize);
+		hipHostMalloc(&neighbors, neighborsSize);
+	}
+
+	~Neighbours()
+	{
+		hipHostFree(counts);
+		hipHostFree(offsets);
+		hipHostFree(neighbors);
+	}
+
+};
 
 namespace sph
 {
@@ -72,6 +132,8 @@ void computeDensitySMS(ParticleBufferList buff_list, int *cell_offset, int *cell
 
 void computeDensitySMS64(ParticleBufferList buff_list, int *cell_offset, int *cell_num, BlockTask *block_task, int num_block);
 void computeDensityHybrid128n(int *cell_offset_M, ParticleIdxRange range, ParticleBufferList buff_list_n, int* cindex, int *cell_offset, int *cell_num, BlockTask *block_task, int num_block);
+
+void computeNeighbours(int* cell_offset_M, ParticleIdxRange range, ParticleBufferList buff_list_n, int* cindex, int* cell_offset, int* cell_num, BlockTask* block_task, int num_block, Neighbours& neigh);
 
 void computeForceHybrid128n(int *cell_offset_M, ParticleIdxRange range, ParticleBufferList buff_list_n, int* cindex, int *cell_offset, int *cell_num, BlockTask *block_task, int num_block);
 //void computeDensityHybrid128n(ParticleIdxRange range, ParticleBufferList buff_list_n, int* cindex, int *cell_offset, int *cell_num, BlockTask *block_task, int num_block);

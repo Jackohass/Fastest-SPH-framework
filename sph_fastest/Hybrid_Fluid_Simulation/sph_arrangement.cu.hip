@@ -597,50 +597,72 @@ Arrangement::Arrangement(ParticleBufferObject &buff_list, ParticleBufferObject &
     //CUDA_SAFE_CALL(cudaMalloc(&d_start_index_, numc_ * sizeof(int)));
     //CUDA_SAFE_CALL(cudaMalloc(&d_end_index_, numc_ * sizeof(int)));
     CUDA_SAFE_CALL(hipMalloc(&d_hash_, nump_capacity * sizeof(int)));
+	printf("0\n");
     CUDA_SAFE_CALL(hipMalloc(&d_index_, nump_capacity * sizeof(int)));
+	printf("1\n");
     // SMS
 	CUDA_SAFE_CALL(hipMalloc(&d_hash_p, nump_capacity * sizeof(int)));
+	printf("2\n");
     CUDA_SAFE_CALL(hipMalloc(&hashp, nump_ * sizeof(int)));
+	printf("3\n");
     //CUDA_SAFE_CALL(cudaMalloc(&indexp, nump_ * sizeof(int)));
 
     CUDA_SAFE_CALL(hipMalloc(&d_block_reqs_, numc_ * sizeof(int)));
+	printf("4\n");
 
 
     CUDA_SAFE_CALL(hipMalloc(&d_task_array_offset_32_, numc_ * sizeof(int)));
+	printf("5\n");
 
     CUDA_SAFE_CALL(hipMalloc(&d_breqs_offset_, numc_ * sizeof(int)));
+	printf("6\n");
     //CUDA_SAFE_CALL(cudaMalloc(&cell_num_, numc_ * sizeof(int)));
     CUDA_SAFE_CALL(hipMalloc(&cell_num_two, (2 * numc_+1) * sizeof(int)));
+	printf("7\n");
     CUDA_SAFE_CALL(hipMalloc(&cell_type, numc_ * sizeof(int)));
+	printf("8\n");
 
 
     CUDA_SAFE_CALL(hipMalloc(&d_block_task_, numc_ * 10 * sizeof(BlockTask)));
+	printf("9\n");
     CUDA_SAFE_CALL(hipMalloc(&d_num_block_, sizeof(int)));
+	printf("10\n");
 
     CUDA_SAFE_CALL(hipMalloc(&d_middle_value_, sizeof(int)));
+	printf("11\n");
 
 
     CUDA_SAFE_CALL(hipMalloc(&d_num_cta_, sizeof(int)));
+	printf("12\n");
 
     CUDA_SAFE_CALL(hipMalloc(&d_cell_offset_, (numc_+1) * sizeof(int)));
+	printf("13\n");
 
     //CUDA_SAFE_CALL(cudaMalloc(&d_cell_offset_data, (numc_ + 1) * sizeof(int)));
 
     CUDA_SAFE_CALL(hipMalloc(&d_cell_nump_, numc_ * sizeof(int)));
+	printf("14\n");
 
 
     CUDA_SAFE_CALL(hipMalloc(&d_p_offset_, nump_ * sizeof(int)));
+	printf("15\n");
 
     CUDA_SAFE_CALL(hipMalloc(&d_p_offset_p, nump_ * sizeof(int)));
+	printf("16\n");
 
 	CUDA_SAFE_CALL(hipMalloc(&d_cell_offset_M, (numc_ * 64 + 1) * sizeof(int)));
+	printf("17\n");
 	CUDA_SAFE_CALL(hipMalloc(&d_cell_nump_M, (numc_ * 64 + 1) * sizeof(int)));
+	printf("18\n");
 
     preallocBlockSumsInt(numc_);
+	printf("preallocated block sums\n");
 
     CUDA_SAFE_CALL(hipMemset(d_num_cta_, 0, sizeof(int)));
+	printf("19\n");
 
     gpu_model::allocateGPUModel(p_gpu_model_);
+	printf("Allocated GPU model\n");
 }
 
 Arrangement::~Arrangement()
