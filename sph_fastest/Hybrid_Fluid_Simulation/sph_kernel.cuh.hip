@@ -57,12 +57,15 @@ public:
 
 	Neighbours(int numParticles)
 	{
-		countsSize = sizeof(int) * numParticles;
-		neighborsSize = sizeof(int) * numParticles * 27;
+		countsSize = 0;
+		neighborsSize = 0;
 		particleCount = numParticles;
-		hipHostMalloc(&counts, countsSize);
+		counts = nullptr;
+		offsets = nullptr;
+		neighbors = nullptr;
+		/*hipHostMalloc(&counts, countsSize);
 		hipHostMalloc(&offsets, countsSize);
-		hipHostMalloc(&neighbors, neighborsSize);
+		hipHostMalloc(&neighbors, neighborsSize);*/
 	}
 
 	~Neighbours()

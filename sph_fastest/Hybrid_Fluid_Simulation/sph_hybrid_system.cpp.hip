@@ -277,7 +277,7 @@ void HybridSystem::tick()
 
     //sf 将数据复制回host
     //printf("-------A FREEZE IS INCOMING!--------\n");
-    CUDA_SAFE_CALL(hipMemcpy(host_buff_.get_buff_list().final_position, device_buff_.get_buff_list().final_position, nump_ * sizeof(float3), hipMemcpyDeviceToHost)); //MEGA SUS
+    CUDA_SAFE_CALL(hipMemcpy(host_buff_.get_buff_list().final_position, device_buff_.get_buff_list().final_position, nump_ * sizeof(float3), hipMemcpyDeviceToHost));
     //printf("-------DONE FIRST MEMCPY!--------\n");
     CUDA_SAFE_CALL(hipMemcpy(host_buff_.get_buff_list().color, device_buff_.get_buff_list().color, nump_ * sizeof(uint), hipMemcpyDeviceToHost));
     //printf("-------DONE SECOND MEMCPY!--------\n");

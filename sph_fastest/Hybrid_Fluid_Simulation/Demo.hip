@@ -35,7 +35,7 @@ float const r_omega = static_cast<float>(0.15);
 float const r_omega2 = r_omega * r_omega;
 float const radius = static_cast<float>(2.0) * (static_cast<float>(2.0) * r_omega / static_cast<float>(N - 1));
 
-uint buff_capacity_ = N * N * N;
+uint buff_capacity_ = 881968;
 uint nump_ = 0U;
 sph::ParticleBufferObject host_buff_;
 sph::ParticleBufferObject device_buff_;
@@ -72,7 +72,7 @@ void testFSPHF()
 	//Generate test data
 	float min_x = std::numeric_limits<float>::max();
 	float max_x = std::numeric_limits<float>::min();
-	positions.reserve(N * N * N);
+	positions.reserve(buff_capacity_);
 	for (unsigned int i = 0; i < N; ++i)
 	{
 		for (unsigned int j = 0; j < N; ++j)
@@ -90,7 +90,7 @@ void testFSPHF()
 				{
 					x.x += static_cast<float>(0.35);
 					x.y += static_cast<float>(0.35);
-					x.y += static_cast<float>(0.35);
+					x.z += static_cast<float>(0.35);
 					positions.push_back(x);
 					if (min_x > x.x)
 					{
@@ -107,6 +107,21 @@ void testFSPHF()
 	std::shuffle(positions.begin(), positions.end(), g);
 	printf("Number of particles: %d \n", static_cast<int>(positions.size()));
 
+	// ## INITIALIZE SYSTEM
+	sph::SystemParameter sysPara;
+
+	sysPara.kernel = radius;//0.03f;
+	sysPara.kernel_2 = sysPara.kernel * sysPara.kernel;
+
+	sysPara.cell_size = sysPara.kernel;
+	sysPara.grid_size = make_ushort3(
+		(ushort)ceil(1.0f / sysPara.cell_size),
+		(ushort)ceil(1.0f / sysPara.cell_size),
+		(ushort)ceil(1.0f / sysPara.cell_size)
+	);
+
+	transSysParaToDevice(&sysPara);
+
 	//Add point set from the test data
 	for (unsigned int i = 0; i < positions.size(); ++i)
 	{
@@ -118,15 +133,10 @@ void testFSPHF()
 
 	host_buff_.transfer(device_buff_, 0, nump_, hipMemcpyHostToDevice);
 	printf("Host buffer transfer success\n");
-	float cell_size = 0.03f / 80;
-	ushort3 grid_size = make_ushort3(
-		(ushort)ceil(1.0f / cell_size),
-		(ushort)ceil(1.0f / cell_size),
-		(ushort)ceil(1.0f / cell_size)
-	);
 	
-	sph::Arrangement* arrangement_ = new sph::Arrangement(device_buff_, device_buff_temp_, nump_, buff_capacity_, cell_size, grid_size);
+	sph::Arrangement* arrangement_ = new sph::Arrangement(device_buff_, device_buff_temp_, nump_, buff_capacity_, sysPara.cell_size, sysPara.grid_size);
 	printf("Arrangement success\n");
+	printf("System initialization success\n");
 
 	int* d_index = arrangement_->getDevCellIndex();
 	int* offset_data = arrangement_->getDevOffsetData();
@@ -146,6 +156,8 @@ void testFSPHF()
 
 	sph::computeNeighbours(cell_offsetM, tra_range, device_buff_.get_buff_list(), d_index, cell_offset, cell_nump, arrangement_->getBlockTasks(), arrangement_->getNumBlockSMSMode(), neigh);
 	printf("Computed neighbours\n");
+
+	CUDA_SAFE_CALL(hipMemcpy(host_buff_.get_buff_list().position_d, device_buff_.get_buff_list().position_d, nump_ * sizeof(float4), hipMemcpyDeviceToHost));
 
 	//Neighborhood search result test
 
