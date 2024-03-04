@@ -54,5 +54,16 @@
     <ClCompile Include="..\Hybrid_Fluid_Simulation\gpu_model_reader.cpp.hip">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\Hybrid_Fluid_Simulation\NeighborhoodSearchSpatialHashing.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Hybrid_Fluid_Simulation\NeighborhoodSearchSpatialHashing.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Hybrid_Fluid_Simulation\Hashmap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

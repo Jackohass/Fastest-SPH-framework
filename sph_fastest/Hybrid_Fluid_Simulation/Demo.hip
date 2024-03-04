@@ -7,6 +7,8 @@
 #include <limits>
 #include <random>
 
+#include "NeighborhoodSearchSpatialHashing.h"
+
 #include "sph_kernel.cuh.hip"
 #include "sph_arrangement.cuh.hip"
 #include "sph_particle.h.hip"
@@ -104,6 +106,8 @@ void testFSPHF()
 			}
 		}
 	}
+	float length = max_x - min_x + 0.015625f;
+
 	std::shuffle(positions.begin(), positions.end(), g);
 	printf("Number of particles: %d \n", static_cast<int>(positions.size()));
 
@@ -162,22 +166,121 @@ void testFSPHF()
 	//Neighborhood search result test
 
 	std::cout << "Validate results" << std::endl;
+
+	printf("GPU:\n");
+	std::vector<int> neighboursGPU;
+	neighboursGPU.reserve(27547136);
 	for (unsigned int i = 0; i < nump_; i++)
 	{
 		float4 point = host_buff_.get_buff_list().position_d[i];
+		if (i < 22) printf("%d has %d neighbours: ", i, neigh.counts[i]);
 		for (unsigned int j = 0; j < neigh.counts[i]; j++)
 		{
 			int neighbor = neigh.neighbors[neigh.offsets[i] + j];
 			float4 diff = point - host_buff_.get_buff_list().position_d[neighbor];
 			float squaredLength = diff.x * diff.x + diff.y * diff.y + diff.z * diff.z;
 			float distance = sqrt(squaredLength);
+			if (i < 22) printf("%d, ", neighbor);
 
 			if (distance > radius)
 			{
 				throw std::runtime_error("Not a neighbor");
 			}
+			neighboursGPU.push_back(neighbor);
 		}
+		if (i < 22) printf("\n");
 	}
+	printf("\n");
+	std::sort(neighboursGPU.begin(), neighboursGPU.end());
+
+	printf("CPU:\n");
+	std::vector<int> neighboursCPU;
+	neighboursCPU.reserve(27547136);
+
+	PBD::NeighborhoodSearchSpatialHashing testNeight(positions.size(), radius);
+	testNeight.neighborhoodSearch(&positions[0]);
+
+	unsigned int** neighbors = testNeight.getNeighbors();
+	unsigned int* numNeighbors = testNeight.getNumNeighbors();
+
+	for (int i = 0; i < positions.size(); i++)
+	{
+		if (i < 22) printf("%d (%d): ", i, numNeighbors[i]);
+		for (unsigned int j = 0; j < numNeighbors[i]; j++)
+		{
+			const unsigned int neighborIndex = neighbors[i][j];
+			if (i < 22) printf("%d; ", neighborIndex);
+			neighboursCPU.push_back(neighborIndex);
+		}
+		if (i < 22) printf("\n");
+	}
+	printf("\n");
+
+	/*std::vector<std::vector<int>> cells;
+	const uint numCells = sysPara.grid_size.x * sysPara.grid_size.y * sysPara.grid_size.z;
+	cells.resize(numCells);
+	for (unsigned int i = 0; i < numCells; i++)
+	{
+		cells[i].reserve(20);
+	}
+
+	std::vector<int> cellHashes;
+	cellHashes.reserve(buff_capacity_);
+	for (unsigned int i = 0; i < nump_; i++)
+	{
+		float3 point = positions[i];
+		ushort3 indexes = make_ushort3(
+			(ushort)floor(point.x * 199.0f / length),
+			(ushort)floor(point.y * 199.0f / length),
+			(ushort)floor(point.z * 199.0f / length)
+		);
+		ushort index = indexes.x + indexes.y * sysPara.grid_size.x + indexes.z * sysPara.grid_size.y * sysPara.grid_size.x;
+		cellHashes.push_back(index);
+		cells[index].push_back(i);
+	}
+
+	for (unsigned int i = 0; i < nump_; i++)
+	{
+		float3 point = positions[i];
+		if (i < 22) printf("%d has the neighbours: ", i);
+		for (int x = -1; x < 2; x++)
+		{
+			for (int y = -1; y < 2; y++)
+			{
+				for (int z = -1; z < 2; z++)
+				{
+					ushort index = cellHashes[i] + x + y * sysPara.grid_size.x + z * sysPara.grid_size.y * sysPara.grid_size.x;
+					for (unsigned int j = 0; j < cells[index].size(); j++)
+					{
+						int neighbour = cells[index][j];
+						if (neighbour == i) continue;
+						float3 diff = point - positions[neighbour];
+						float squaredLength = diff.x * diff.x + diff.y * diff.y + diff.z * diff.z;
+						float distance = sqrt(squaredLength);
+						if (distance > radius) continue;
+						neighboursCPU.push_back(neighbour);
+						if (i < 22) printf("%d, ", neighbour);
+					}
+				}
+			}
+		}
+		if (i < 22) printf("\n");
+	}
+	printf("\n");*/
+	std::sort(neighboursCPU.begin(), neighboursCPU.end());
+
+	printf("Number of CPU neighbours: %d\nNumber of GPU neighbours: %d\n", neighboursCPU.size(), neighboursGPU.size());
+	std::vector<unsigned int> difference;
+	difference.reserve(50);
+
+	std::set_difference(neighboursGPU.begin(), neighboursGPU.end(), neighboursCPU.begin(), neighboursCPU.end(),
+		std::inserter(difference, difference.begin()));
+	printf("Difference(% d) : ", difference.size());
+	for (unsigned int d : difference)
+	{
+		//printf("\t%d; ", d);
+	}
+	printf("\n");
 }
 
 int main(int argc, char* argv[])

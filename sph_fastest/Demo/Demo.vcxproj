@@ -18,12 +18,17 @@
     <ClCompile Include="..\Hybrid_Fluid_Simulation\gpu_model.h.hip" />
     <ClCompile Include="..\Hybrid_Fluid_Simulation\gpu_model_reader.cpp.hip" />
     <ClCompile Include="..\Hybrid_Fluid_Simulation\gpu_model_reader.h.hip" />
+    <ClCompile Include="..\Hybrid_Fluid_Simulation\NeighborhoodSearchSpatialHashing.cpp" />
     <ClCompile Include="..\Hybrid_Fluid_Simulation\sph_arrangement.cu.hip" />
     <ClCompile Include="..\Hybrid_Fluid_Simulation\sph_arrangement.cuh.hip" />
     <ClCompile Include="..\Hybrid_Fluid_Simulation\sph_kernel.cu.hip" />
     <ClCompile Include="..\Hybrid_Fluid_Simulation\sph_kernel.cuh.hip" />
     <ClCompile Include="..\Hybrid_Fluid_Simulation\sph_particle.cpp.hip" />
     <ClCompile Include="..\Hybrid_Fluid_Simulation\sph_particle.h.hip" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Hybrid_Fluid_Simulation\Hashmap.h" />
+    <ClInclude Include="..\Hybrid_Fluid_Simulation\NeighborhoodSearchSpatialHashing.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
@@ -36,7 +41,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-	<WholeProgramOptimization>false</WholeProgramOptimization>
+    <WholeProgramOptimization>false</WholeProgramOptimization>
     <PlatformToolset>HIP_clang</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -84,10 +89,10 @@
     <ClCompile>
       <WarningLevel>Level2</WarningLevel>
       <Optimization>Disabled</Optimization>
-	  <FunctionLevelLinking>false</FunctionLevelLinking>
+      <FunctionLevelLinking>false</FunctionLevelLinking>
       <IntrinsicFunctions>false</IntrinsicFunctions>
       <LanguageStandard>stdcpp17</LanguageStandard>
-	  <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <DebugInformationLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">GGDB3</DebugInformationLevel>
       <EmitMacroDebugInfo Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</EmitMacroDebugInfo>
@@ -97,7 +102,7 @@
       <WarnOnDeprecatedConstructs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</WarnOnDeprecatedConstructs>
       <NoCrashDiagnostics Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</NoCrashDiagnostics>
       <NoDeprecatedDeclarations Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</NoDeprecatedDeclarations>
-	  <AdditionalIncludeDirectories>D:\projects\master_thesis\programs\Fastest-SPH-framework\sph_fastest\Hybrid_Fluid_Simulation\json\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\projects\master_thesis\programs\Fastest-SPH-framework\sph_fastest\Hybrid_Fluid_Simulation\json\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>__clang__;__HIP__;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -105,7 +110,7 @@
       <OptimizeReferences>false</OptimizeReferences>
       <AdditionalDependencies>freeglut.lib;glew32.lib;lib_json.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-	  <EnableCOMDATFolding>false</EnableCOMDATFolding>
+      <EnableCOMDATFolding>false</EnableCOMDATFolding>
       <OptimizeReferences>false</OptimizeReferences>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>/SAFESEH:NO %(AdditionalOptions)</AdditionalOptions>
@@ -119,7 +124,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
-	  <AdditionalIncludeDirectories>D:\projects\master_thesis\programs\Fastest-SPH-framework\sph_fastest\Hybrid_Fluid_Simulation\json\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\projects\master_thesis\programs\Fastest-SPH-framework\sph_fastest\Hybrid_Fluid_Simulation\json\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <PreprocessorDefinitions>__clang__;__HIP__;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
