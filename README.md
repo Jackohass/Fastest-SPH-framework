@@ -1,5 +1,6 @@
 # Fastest-SPH-framework
-this is the fastest SPH framework.
+This is a HIP implementation of "Novel Hierarchical Strategies for SPH-centric Algorithms on GPGPU", which orginally used CUDA.
+(I beg to the coding gods and ask my previous programming teachers for forgiveness for my improper use of, well more like lack of, proper build tools. I will add that in the future.)
 
 This project is the source code of "Novel Hierarchical Strategies for SPH-centric Algorithms on GPGPU"
 and "A General Novel Parallel Framework for SPH-centric Algorithms". 
